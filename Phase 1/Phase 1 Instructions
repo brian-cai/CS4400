@@ -1,12 +1,27 @@
 Deliverables Phase I (submit on TSquare and bring a hard copy to class) 
 The deliverables include (put everything in one pdf file): 
-1. A cover page. Your cover page MUST include all information on the template. (Template is under Resources/Project) 
+1. A cover page. Your cover page MUST include all information on the template. 
+(Template is under Resources/Project) 
 2. Enhanced Entity Relationship (EER) Diagram 
 3. Information Flow Diagram 
-4. A list of logical constraints (at least 3). You are required to include at least three logical constraints, although a fully-specified system will probably have more than that. 
+4. A list of logical constraints (at least 3). 
+You are required to include at least three logical constraints,
+although a fully-specified system will probably have more than that. 
 5. Any assumptions made with explanations. 
 Notes: 
-1. The EER must capture the functionalities of the system whenever applicable, i.e. total participation, super/sub class, weak entities. 
-2. The design of your system must have all functionalities. You are allowed to make up additional assumptions as long as they do not conflict with the specified constraints and requirements. You must list all your assumptions; otherwise TA would mark your ER diagram wrong since they would not be able to know you had made your own assumptions. 
-3. Logical constraints that can be specified directly using ER notation will not count towards the three required. Constraints related to data type or value are not accepted as constraints. 
-Each group needs to turn in one hard copy (only one for the entire group), and each group member should upload an electronic copy on T-Square individually. You will receive -5 penalty if you do not submit an electronic copy. Please write down your Group Number clearly on cover page. If you do not know your group number, please email the head TA.
+1. The EER must capture the functionalities of the system whenever applicable, 
+i.e. total participation, super/sub class, weak entities. 
+2. The design of your system must have all functionalities. 
+You are allowed to make up additional assumptions as long 
+as they do not conflict with the specified constraints and requirements
+You must list all your assumptions; otherwise TA would mark your ER diagram wrong
+since they would not be able to know you had made your own assumptions. 
+3. Logical constraints that can be specified directly using ER notation will
+not count towards the three required. Constraints related to data type or value
+are not accepted as constraints. 
+
+Each group needs to turn in one hard copy (only one for the entire group), 
+and each group member should upload an electronic copy on T-Square individually. 
+You will receive -5 penalty if you do not submit an electronic copy. 
+Please write down your Group Number clearly on cover page.
+If you do not know your group number, please email the head TA.
