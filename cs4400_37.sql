@@ -27,9 +27,7 @@ CREATE TABLE  `cs4400_37`.`USER` (
 `email` VARCHAR( 100 ) NOT NULL ,
 `username` VARCHAR( 100 ) NOT NULL ,
 `password` VARCHAR( 100 ) NOT NULL ,
-/*
-`usertype` ENUM(  `admin`,  `city scientist`,  `city official` ) NOT NULL ,
-*/
+`usertype` ENUM(  'admin',  'city scientist',  'city official' ) NOT NULL ,
 PRIMARY KEY (  `email` ),
 UNIQUE ( `username` )
 )
