@@ -27,7 +27,7 @@ CREATE TABLE  `cs4400_37`.`USER` (
 `email` VARCHAR( 100 ) NOT NULL ,
 `username` VARCHAR( 100 ) NOT NULL ,
 `password` VARCHAR( 100 ) NOT NULL ,
-`user_type` ENUM(  'admin',  'city scientist',  'city official' ) NOT NULL ,
+`user_type` ENUM(  'admin',  'city_scientist',  'city_official' ) NOT NULL ,
 PRIMARY KEY (  `username` ),
 UNIQUE ( `email` )
 );
@@ -103,7 +103,7 @@ FOREIGN KEY (`type`)
 -- test entries
 
 INSERT INTO USER values("rohith@test", "brohith", "password", 'admin');
-INSERT INTO USER values("victor@test", "brazaboy555", "lol", 'city official');
+INSERT INTO USER values("victor@test", "brazaboy555", "lol", 'city_official');
 INSERT INTO LOCATION values("Atlanta", "GA");
 INSERT INTO LOCATION values("Savannah", "GA");
 INSERT INTO LOCATION values("Decatur", "GA");
