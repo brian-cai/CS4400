@@ -3,4 +3,4 @@ select email,username,user_type from USER where( USER.username = un_input  and U
 -- if empty set:
 --      error "Invalid username or password"
 -- else:
---      successful login use user_type to direct user to correct page
+--      successful login use user_type to direct user to correct menu page
