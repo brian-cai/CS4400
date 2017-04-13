@@ -1,0 +1,1 @@
+select (email,username,user_type) from USER where( USER.email = input1 and USER.password = input2)
