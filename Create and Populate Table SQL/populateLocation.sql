@@ -7,3 +7,9 @@
 
 INSERT INTO LOCATION ("city", "state")
 VALUES ("Atlanta", "GA");
+
+INSERT INTO LOCATION
+VALUES ("Decatur", "GA"), ("Tampa", "FL")
+
+INSERT INTO LOCATION
+VALUES ("Birmingham", "AL"), ("Savannah", "GA"), ("Charleston", "SC"), ("Alpharetta", "GA");
