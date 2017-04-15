@@ -9,9 +9,32 @@
 <body>
   <div class="form">
       <h1>Pending City Official Accounts</h1>
+      TO DO: INSERT CHECKBOXES AND MARK THEM<br>
+      <table border="1" cellspacing="2" cellpadding="2">
+      <tr>
+            <th>Head1 </th>
+            <th>Head2 </th>
+      </tr>
 
-      THE CHART IS INSERTED HERE
+      <?php
+        $i = 0;
+        $num = 10;
+        while ($i < $num) {
+          //put queries from database here
+        
+      ?>
       
+      <tr>
+            <td><?php echo $i ?></td>
+            <td>placeholder xd <?php echo $i ?></td>
+      </tr>
+      <?php
+      $i++;
+        }
+      ?>
+        
+     </table>  
+
       <br><br>
 
       <br><br>
@@ -21,11 +44,14 @@
           Back
         </a>
       </button>
+      
       <button>
         <a href="#">        
           Reject
         </a>
       </button>
+
+
       <button>
         <a href="#">        
           Accept

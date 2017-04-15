@@ -8,8 +8,9 @@
 
 <body>
   <div class="form">
+    <form action = "addDataPOI.php" method = "get">
       <h1>ADD A NEW LOCATION </h1>
-              <input type="text" placeholder="poi LOCATION name"/>
+      <input type="text" name="poiname" placeholder="poi location name"/>
 
       <select name="City">
           <option value="city1">city1</option>
@@ -24,21 +25,29 @@
         </select>
       <br>
 
-        <input type="text" placeholder="zip code"/>
+        <input type="number" name="zcode" placeholder="zip code"/>
       
-      <button>
-        <a href="#">
-          Back 
-        </a>        
-      </button>
-      <button>
-        <a href="#">        
-          Submit
-        </a>
+      <button input type="submit">        
+          <submitted href="#" >Submit
+        </submitted>
       </button>
     </form>
 
+      <br>
+      <button href="#">
+        <a >
+          Back 
+        </a>        
+      </button>
+
+      <br>
+      
   </div>
+
+POI name <?php echo $_GET["poiname"]; ?> <br>
+City: <?php echo $_GET["City"]; ?> <br> 
+      State: <?php echo $_GET["State"]; ?> <br>
+      Zip Code: <?php echo $_GET["zcode"]; ?> <br>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
