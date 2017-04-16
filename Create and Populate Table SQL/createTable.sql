@@ -66,7 +66,7 @@ FOREIGN KEY (`city`, `state`)
 -- Data Point
 CREATE TABLE  `cs4400_37`.`DATA_POINT` (
 `location_name` VARCHAR( 100 ) NOT NULL ,
-`date_time` TIMESTAMP NOT NULL ,
+`date_time` DATETIME NOT NULL ,
 `type` VARCHAR(100) NOT NULL ,
 `data_value` INTEGER NOT NULL,
 `approved` BOOL NOT NULL DEFAULT 0,

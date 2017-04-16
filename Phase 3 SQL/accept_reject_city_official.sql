@@ -1,10 +1,13 @@
 --the tricky thing is to find out how to deal with multiple city officials that they can "select" with a checkbox
 --If the select box is clicked next to their name put their username in a tuple called username_inputs
 --I literally have no idea if this is right
-SELECT ("username", "email", "city", "state")
-FROM USER
-INNER JOIN CITY_OFFICIAL ON USER.username == CITY_OFFICIAL.username
-WHERE ("approved" == 0);
+SELECT U.username, U.email, C.city, C.state, C.approved
+FROM USER AS U
+INNER JOIN CITY_OFFICIAL AS C ON U.username = C.username
+WHERE approved = 0;
+
+--the above returns what I want
+
 
 --ACCEPT city officials
 --if their name is checked and accept button is clicked then run this query
