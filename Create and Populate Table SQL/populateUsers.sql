@@ -16,6 +16,7 @@ INSERT INTO USER values("cityoff1@atlanta.org", "atlofficial1", "falcons", 'city
 INSERT INTO USER values("reject@atlanta.org", "rejectedman", "reject", 'city_official');
 INSERT INTO USER values("pending@atlanta.org", "pendingman", "pending", 'city_official');
 INSERT INTO USER values("cityoff@atlanta.org", "atlofficial", "falcons", 'city_official');
+INSERT INTO USER values("test2@atlanta.org", "test2", "test2", 'city_official');
 
 
 --city scientists
