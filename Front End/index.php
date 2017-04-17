@@ -29,9 +29,9 @@
 
     <form class="register-form" action = "index.php" method = "post">
       NEW USER REGISTRATION
-      <input type="text" name="username" placeholder="username"/>
+      <input type="text" name="usernameR" placeholder="username"/>
       <input type="text" name="email" placeholder="email address"/>
-      <input type="password" name="password" placeholder="password"/>
+      <input type="password" name="password1" placeholder="password"/>
       <input type="password" name="password2"placeholder="confirm password">
       <!-- dropdown  city officials-->
 
@@ -108,7 +108,7 @@ LOGIN QUERY DATA <br>
 
 <br>
 REGISTER QUERY DATA <br>
-username: <?php echo $_POST["username"]; ?> <br>
+username: <?php echo $_POST["usernameR"]; ?> <br>
 password: <?php echo $_POST["password1"]; ?> <br>
 password confirmation: <?php echo $_POST["password2"]; ?> <br>
 email: <?php echo $_POST["email"]; ?> <br>

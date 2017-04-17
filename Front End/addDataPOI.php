@@ -16,26 +16,59 @@
           <option value="city1">city1</option>
           <option value="city2">city2</option>
           <option value="city3">city3</option>
+          <?php
+            $i = 4;
+            $num = 10;
+            while ($i < $num) {
+              //put queries from database here
+            
+          ?>
+          
+              <option value= "city<?php echo $i ?>" > city<?php echo $i ?></option>
+          
+          
+
+          <?php
+          $i++;
+            }
+          ?>
         </select>
+
       <br>
       <select name="State">
           <option value="state1">state1</option>
           <option value="state2">state2</option>
           <option value="state3">state3</option>
+          <?php
+            $i = 4;
+            $num = 10;
+            while ($i < $num) {
+              //put queries from database here
+            
+          ?>
+          
+              <option value= "state<?php echo $i ?>" > state<?php echo $i ?></option>
+          
+          
+
+          <?php
+          $i++;
+            }
+          ?>
         </select>
       <br>
 
         <input type="number" name="zcode" placeholder="zip code"/>
       
       <button input type="submit">        
-          <submitted href="#" >Submit
-        </submitted>
+          <a href="#" >Submit
+        </a>
       </button>
     </form>
 
       <br>
-      <button href="#">
-        <a >
+      <button>
+        <a href="addDataPoint.php">
           Back 
         </a>        
       </button>

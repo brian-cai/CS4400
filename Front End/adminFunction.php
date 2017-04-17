@@ -10,19 +10,18 @@
   <div class="form">
       <h1>CHOOSE FUNCTIONALITY </h1>
 
-
-      <b href= "#"> Pending Data Points</b>
+      <a href= "adminData.php"> Pending Data Points</a>
       
       <br><br>
 
-      <c href= "#"> Pending City Official Accounts</c>
+      <a href= "adminCityOfficials.php"> Pending City Official Accounts</a>
 
       <br><br>
       
       <button>
-        <d href="#">        
+        <a href="index.php">        
           Logout
-        </d>
+        </a>
       </button>
     </form>
 

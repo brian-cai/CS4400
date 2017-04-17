@@ -39,23 +39,38 @@
 
 
         Data Type <select name="datatype">
-          <option value="Mold">Mold</option>
-          <option value="Air">Air</option>
-          <option value="datatype3">datatype3</option>
+          <option value="Mold">Mold - Hardcode</option>
+          <option value="Air">Air - Hardcode</option>
+          <?php
+            $i = 1;
+            $num = 3;
+            while ($i < $num) {
+              //put queries from database here
+            
+          ?>
+          
+              <option value= "nothardcode<?php echo $i ?>" >datatype <?php echo $i ?></option>
+          
+          
+
+          <?php
+          $i++;
+            }
+          ?>
         </select>
         <br><br>
       
-      <input type="text" name="datavalue" placeholder="data value"/>
+      <input type="number" name="datavalue" placeholder="data value"/>
       
       <button>
-        <a href="#">
-          Back 
+        <a href="index.php">
+          Log Out 
         </a>        
       </button>
-      <button>
-        <submitted href="#">
+      <button input type="submit">
+        <a href="#">
           Submit
-        </submitted>
+        </a>
       </button>
     </form>
 

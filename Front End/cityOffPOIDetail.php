@@ -8,19 +8,35 @@
 
 <body>
   <div class="form">
+    <form action = "cityOffPOIDetail.php" method = "get">
       <h1> POI detail</h1>
       Type
-      <select name="poitype">
-          <option value="Mold">Mold</option>
-          <option value="Air">Air</option>
-          <option value="poi3">poi3</option>
-        </select>
+      <select name="poitype" >
+         <option value="Mold">Mold - Hardcode</option>
+          <option value="Air">Air - Hardcode</option>
+          <?php
+            $i = 1;
+            $num = 3;
+            while ($i < $num) {
+              //put queries from database here
+            
+          ?>
+          
+              <option value= "nothardcode<?php echo $i ?>" >poitype <?php echo $i ?></option>
+          
+          
+
+          <?php
+          $i++;
+            }
+          ?>
+      </select>
       <br>
       
       Data Value
-      <input type="number" width="10%">
+      <input type="number" width="10%" name="lowend">
       to
-      <input type="number" width="10px">
+      <input type="number" width="10px" name="highend">
       
       <br></br>
       time and date here
@@ -28,14 +44,17 @@
       <br></br>
 
       
-      <button>
-        <a href="#">
+      <button input type="submit">        
+
+        <submitted href="#">
           Apply Filter 
+        </submitted>
+
         </a>        
       </button>
 
       <button>
-        <a href="#">
+        <a href="cityOffPOIDetail.php">
           Reset Filter 
         </a>        
       </button>
@@ -46,7 +65,7 @@
 
       <br><br>
       <button>
-        <a href="#">
+        <a href="cityOffFunction.php">
           Back 
         </a>        
       </button>
@@ -61,6 +80,8 @@
     </form>
 
   </div>
+POI Name: <?php echo $_GET["poitype"]; ?> <br>
+Range: <?php echo $_GET["lowend"]; ?> to <?php echo $_GET["highend"]; ?> <br> 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

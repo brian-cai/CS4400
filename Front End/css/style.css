@@ -24,7 +24,7 @@ js@import url(https://fonts.googleapis.com/css?family=Roboto:300);
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 16px;
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -33,9 +33,9 @@ js@import url(https://fonts.googleapis.com/css?family=Roboto:300);
   background: #4CAF50;
   /*width: 100%;*/
   border: 0;
-  padding: 15px;
+  padding: 5px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 16px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -43,10 +43,15 @@ js@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 .form button:hover,.form button:active,.form button:focus {
   background: #43A047;
 }
+.form .button a {
+    display: block;
+    width: 100%;
+    line-height: 100%;
+}
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 16px;
 }
 .form .message a {
   color: #4CAF50;
@@ -104,7 +109,7 @@ js@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 }
 .container .info span {
   color: #4d4d4d;
-  font-size: 12px;
+  font-size: 16px;
 }
 .container .info span a {
   color: #000000;

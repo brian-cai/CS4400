@@ -11,19 +11,19 @@
       <h1>CHOOSE FUNCTIONALITY </h1>
 
 
-      <a href= "#"> Filter/Search POI</a>
+      <a href= "cityOffView.php"> Filter/Search POI</a>
       
       <br><br>
 
-      <a href= "#"> POI REPORT</a>
+      <a href= "cityOffPOIReport.php"> POI REPORT</a>
 
       <br><br>
       
       
       <button>
-        <d href="#">        
+        <a href="index.php">        
           Logout
-        </d>
+        </a>
       </button>
     </form>
 
