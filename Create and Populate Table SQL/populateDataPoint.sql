@@ -11,3 +11,5 @@ INSERT INTO DATA_POINT
 VALUES ("Georgia Tech", "2017-02-01 03:57:00", "air quality", "34", "0");
 
 --***needs 40 data points and at least ten in GT we can use GUI to do that**
+INSERT INTO DATA_POINT
+VALUES ("Georgia Tech", "2017-02-01 03:57:00", "air quality", "34", NULL);
