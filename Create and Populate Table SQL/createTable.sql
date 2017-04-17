@@ -36,7 +36,7 @@ UNIQUE ( `email` )
 CREATE TABLE  `cs4400_37`.`CITY_OFFICIAL` (
 `username` VARCHAR( 100 ) NOT NULL ,
 `title` VARCHAR( 100 ) NOT NULL ,
-`approved` BOOL DEFAULT 0,
+`approved` BOOL DEFAULT NULL,
 `city` VARCHAR( 100 ) NOT NULL ,
 `state` CHAR( 2 ) NOT NULL ,
 PRIMARY KEY (  `username` ),
@@ -69,7 +69,7 @@ CREATE TABLE  `cs4400_37`.`DATA_POINT` (
 `date_time` DATETIME NOT NULL ,
 `type` VARCHAR(100) NOT NULL ,
 `data_value` INTEGER NOT NULL,
-`approved` BOOL NOT NULL DEFAULT 0,
+`approved` BOOL DEFAULT NULL,
 CONSTRAINT PK_DATA_POINT PRIMARY KEY (  `location_name`, `date_time` ),
 FOREIGN KEY (`location_name`)
     REFERENCES `POI` (`location_name`)
