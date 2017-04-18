@@ -28,9 +28,12 @@ VALUES ("pendingman", "Vice Mayor", "0", "Atlanta", "GA");
 INSERT INTO CITY_OFFICIAL
 VALUES ("atlofficial", "Mayor", "1", "Atlanta", "GA");
 
+INSERT INTO CITY_OFFICIAL
+VALUES ("atlofficial", "Mayor", "1", "Atlanta", "GA");
+
 --should not work
 INSERT INTO CITY_OFFICIAL
-VALUES ("test2", "Mayor", "0", "Cleveland", "OH");
+VALUES ("rohithcity", "Mayor", NULL, "Los Angeles", "CA");
 
 INSERT INTO CITY_OFFICIAL
 VALUES ("notauser", "Mayor", "0", "Atlanta", "GA");
