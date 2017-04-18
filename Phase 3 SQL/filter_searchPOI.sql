@@ -23,13 +23,13 @@ select * from POI where
 
 -- test queries for dummy data on the php server
 
--- select * from POI where
---     (null IS NULL OR location_name = null) and
---     ('Atlanta' IS NULL OR city = 'Atlanta') and
---     (null IS NULL OR state = null) and
---     (30333 IS NULL OR zip = 30333) and
---     (null IS NULL OR flagged = null) and
---     (null IS NULL OR date_flagged = null)
+select * from POI where
+    (null IS NULL OR location_name = null) and
+    ('Atlanta' IS NULL OR city = 'Atlanta') and
+    (null IS NULL OR state = null) and
+    (30332 IS NULL OR zip = 30332) and
+    (null IS NULL OR flagged = null) and
+    (null IS NULL OR date_flagged = null);
 
 
 -- select * from POI where
