@@ -3,6 +3,7 @@
 --BRIAN THIS IS ALL YOU need
 SELECT *
 FROM POI_report_view;
+--***USE THE ABOVE STATEMENT BRIAN IGNORE THE REST
 --not done just in here
 
 --have no idea of the difference between ordering and filtering with SQL vs GUI fuck these TAs
