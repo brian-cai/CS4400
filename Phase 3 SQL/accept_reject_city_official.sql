@@ -12,8 +12,8 @@ WHERE approved IS NULL;
 --ACCEPT city officials
 --if their name is checked and accept button is clicked then run this query
 UPDATE CITY_OFFICIAL
-SET "approved" = 1
-WHERE ("username" IN username_inputs);
+SET approved = 1
+WHERE (username IN username_inputs);
 
 --REJECT
 UPDATE CITY_OFFICIAL
