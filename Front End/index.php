@@ -1,3 +1,11 @@
+<?php
+$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+if ($mysqli->connect_errno) {
+  echo "website error";
+  exit;
+}
+
+?>
 <!DOCTYPE html>
 <html >
 <head>
@@ -105,6 +113,10 @@
 LOGIN QUERY DATA <br>
     username: <?php echo $_POST["username"]; ?> <br>
     password: <?php echo $_POST["password"]; ?> <br>
+    <?php
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    ?>
 
 <br>
 REGISTER QUERY DATA <br>
@@ -116,7 +128,58 @@ user type: <?php echo $_POST["UserType"]; ?> <br>
 city: <?php echo $_POST["City"]; ?> <br>
 state: <?php echo $_POST["State"]; ?> <br>
 title: <?php echo $_POST["Title"]; ?> <br>
+<br>
 
+<!--LOGIC FOR LOGGING IN-->
+<?php 
+$sql = "select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');";
+
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+
+//prints out successful logins
+$count=$result->num_rows;
+$result = $mysqli->query($sql);
+while($row=$result->fetch_assoc()) {
+  $usertype = $row['user_type'];
+}
+echo $usertype;
+echo "<br>";
+if ($count == 1) {
+  if ($usertype == "admin") {
+        echo '<script type="text/javascript" language="javascript"> 
+    window.open("adminFunction.php","_self"); 
+    </script>'; 
+  }
+  else if ($usertype == "city_scientist") {
+        echo '<script type="text/javascript" language="javascript"> 
+    window.open("addDataPoint.php","_self"); 
+    </script>'; 
+  }
+  else if ($usertype == "city_official") {
+        echo '<script type="text/javascript" language="javascript"> 
+    window.open("cityOffFunction.php","_self"); 
+    </script>'; 
+  }
+}
+echo "error: no login! <br>";
+echo "Login Results: $count <br>";
+$result = $mysqli->query($sql);
+while($row=$result->fetch_assoc()) {
+printf("email: %s<br>type: %s", $row['email'], $row['user_type']);
+}
+?>
 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
