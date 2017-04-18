@@ -1,7 +1,8 @@
 --this is tricky af has view, joins, and aggregate functions all mixed in
-CREATE VIEW POI_report AS
+
+--BRIAN THIS IS ALL YOU need
 SELECT *
-FROM POI
+FROM POI_report_view;
 --not done just in here
 
 --have no idea of the difference between ordering and filtering with SQL vs GUI fuck these TAs
@@ -37,7 +38,14 @@ GROUP BY d.location_name;
 CREATE VIEW POI_report_view AS
 SELECT a.location_name, a.city, a.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
 FROM air_report_test AS a
-INNER JOIN mold_report_test AS m
+LEFT JOIN mold_report_test AS m
   on a.location_name = m.location_name
-INNER JOIN count_flagged as c
-  on a.location_name = c.location_name;
+LEFT JOIN count_flagged as c
+  on a.location_name = c.location_name
+UNION
+SELECT m.location_name, m.city, m.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
+FROM mold_report_test AS m
+LEFT JOIN air_report_test AS a
+  on m.location_name = a.location_name
+LEFT JOIN count_flagged as c
+  on m.location_name = c.location_name
