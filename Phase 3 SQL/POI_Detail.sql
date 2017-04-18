@@ -4,7 +4,7 @@
 
 -- Filter/search
 
-select * from DATA_POINT where
+select type, data_value, date_time from DATA_POINT where
     (location_input = location_name) and
     (type_input IS NULL OR type = type_input) and
     (lowVal_input IS NULL OR highVal_input IS NULL OR (data_value >= lowVal_input AND data_value <= highVal_input)) and
