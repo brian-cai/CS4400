@@ -104,8 +104,7 @@ if ($mysqli->connect_errno) {
         <br><br>
       <!--</form>-->
       <button href="#" input type="submit">Create</button>
-      <p class="message">Already registere
-        d? <a href="#">Sign In</a></p>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
 
 
@@ -156,6 +155,8 @@ while($row=$result->fetch_assoc()) {
 }
 echo $usertype;
 echo "<br>";
+
+//LOGIC FOR LANDING PAGE FOR USERNAME AND PASSWORD
 if ($count == 1) {
   if ($usertype == "admin") {
         echo '<script type="text/javascript" language="javascript"> 
