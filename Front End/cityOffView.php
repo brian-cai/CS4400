@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>City Official - View POI</title>  
+  <title>City Official - View POI</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -23,21 +23,21 @@
             $num = 10;
             while ($i < $num) {
               //put queries from database here
-            
+
           ?>
-          
+
               <option value= "location<?php echo $i ?>" > location<?php echo $i ?></option>
-          
-          
+
+
 
           <?php
           $i++;
             }
           ?>
-        
+
         </select>
       <br>
-      
+
       City
       <select name="City">
           <option value="city1">city1</option>
@@ -48,18 +48,18 @@
             $num = 10;
             while ($i < $num) {
               //put queries from database here
-            
+
           ?>
-          
+
               <option value= "city<?php echo $i ?>" > city<?php echo $i ?></option>
-          
-          
+
+
 
           <?php
           $i++;
             }
           ?>
-        
+
         </select>
       <br>
       State
@@ -72,37 +72,37 @@
             $num = 10;
             while ($i < $num) {
               //put queries from database here
-            
+
           ?>
-          
+
               <option value= "state<?php echo $i ?>" > state<?php echo $i ?></option>
-          
-          
+
+
 
           <?php
           $i++;
             }
           ?>
-        
+
         </select>
       <br>
 
         <input type="number" name="zcode" placeholder="zip code"/>
-      
+
       <br>
- <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>      
+ <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>
  insert date flagged option here
       <br>
       <button>
         <a href="#">
-          Apply Filter 
-        </a>        
+          Apply Filter
+        </a>
       </button>
 
       <button>
         <a href="cityOffView.php">
-          Reset Filter 
-        </a>        
+          Reset Filter
+        </a>
       </button>
 
 
@@ -116,8 +116,12 @@
       <br><br>
       <table border="1" cellspacing="2" cellpadding="2">
       <tr>
-            <th>Head1 </th>
-            <th>Head2 </th>
+            <th>POI Location Name </th>
+            <th>City </th>
+            <th>State </th>
+            <th>Zip code </th>
+            <th>Flagged? </th>
+            <th>Date Flagged </th>
       </tr>
 
       <?php
@@ -125,7 +129,7 @@
         $num = 10;
         while ($i < $num) {
           //put queries from database here
-        
+
       ?>
 
       <tr>
@@ -137,37 +141,37 @@
         }
       ?>
     </table>
-      
+
  </form>
  <br>
       <button>
         <a href="cityOffFunction.php">
-          Back 
-        </a>        
+          Back
+        </a>
       </button>
   <br>
-<button> 
+<button>
   <a href="cityOffPOIDetail.php">
       Need to make it linkable to details
   </a>
 </button>
-      
-      
+
+
 </div>
 
 location <?php echo $_GET["location"]; ?> <br>
-City: <?php echo $_GET["City"]; ?> <br> 
+City: <?php echo $_GET["City"]; ?> <br>
 State: <?php echo $_GET["State"]; ?> <br>
 Zip Code: <?php echo $_GET["zcode"]; ?> <br>
 
-isflagged? :  <?php 
+isflagged? :  <?php
 if (isset($_GET["flagged"])) {
    // do something
   echo "yes";
 } else {
   echo "no";
 }
-?> 
+?>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
