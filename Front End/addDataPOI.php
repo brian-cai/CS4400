@@ -10,16 +10,16 @@ if ($mysqli->connect_errno) {
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>CS 4400 - Add Data POI</title>  
+  <title>CS 4400 - Add Data POI</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <!-- SQL QUERIES for city dropdown-->
-<?php 
-$sql = "select city from LOCATION;";
+<?php
+$sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city;";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -48,24 +48,24 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $city = $row['city'];
-              }          
+              }
             ?>
-          
+
               <option value= "$city" > <?php echo $city ?></option>
-          
-          
+
+
 
           <?php
           $i++;
             }
           ?>
         </select>
-<?php 
+<?php
 //query for states
-$sql = "select state from LOCATION;";
+$sql = "SELECT DISTINCT state FROM LOCATION ORDER BY state;";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -89,12 +89,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $state = $row['state'];
-              }          
+              }
             ?>
-          
+
               <option value= "$state" > <?php echo $state ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -104,8 +104,8 @@ $count=$result->num_rows;
       <br>
 
         <input type="number" name="zcode" placeholder="zip code"/>
-      
-      <button input type="submit">        
+
+      <button input type="submit">
           <a href="#" >Submit
         </a>
       </button>
@@ -114,16 +114,16 @@ $count=$result->num_rows;
       <br>
       <button>
         <a href="addDataPoint.php">
-          Back 
-        </a>        
+          Back
+        </a>
       </button>
 
       <br>
-      
+
   </div>
 
 POI name <?php echo $_GET["poiname"]; ?> <br>
-City: <?php echo $_GET["City"]; ?> <br> 
+City: <?php echo $_GET["City"]; ?> <br>
       State: <?php echo $_GET["State"]; ?> <br>
       Zip Code: <?php echo $_GET["zcode"]; ?> <br>
 
