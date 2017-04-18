@@ -30,3 +30,7 @@ INSERT INTO USER values("scientist2@test.com", "city_scientist2", "city_scientis
 INSERT INTO USER values("scientist3@test.com", "city_scientist3", "city_scientist3", 'city_scientist');
 INSERT INTO USER values("scientist4@test.com", "city_scientist4", "city_scientist4", 'city_scientist');
 INSERT INTO USER values("scientist5@test.com", "city_scientist5", "city_scientist5", 'city_scientist');
+
+--more user examples
+INSERT INTO USER values("rohithtest@ravi.com", "rohithtest", "ravi", 'city_scientist');
+INSERT INTO USER values("rohithtest1@ravi.com", "rohithcity", "ravi", 'city_official');

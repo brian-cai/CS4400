@@ -4,7 +4,7 @@
 SELECT U.username, U.email, C.city, C.state, C.approved
 FROM USER AS U
 INNER JOIN CITY_OFFICIAL AS C ON U.username = C.username
-WHERE approved = 0;
+WHERE approved IS NULL;
 
 --the above returns what I want
 
@@ -12,9 +12,10 @@ WHERE approved = 0;
 --ACCEPT city officials
 --if their name is checked and accept button is clicked then run this query
 UPDATE CITY_OFFICIAL
-SET "approved" = 1
-WHERE ("username" IN username_inputs);
+SET approved = 1
+WHERE (username IN username_inputs);
 
---REJECT AND DELETE
-DELETE FROM CITY_OFFICIAL, USER
-WHERE ("username" IN username_inputs);
+--REJECT
+UPDATE CITY_OFFICIAL
+SET approved = 0
+WHERE (username IN username_inputs);
