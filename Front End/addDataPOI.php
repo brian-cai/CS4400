@@ -1,3 +1,11 @@
+<?php
+$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+if ($mysqli->connect_errno) {
+  echo "website error";
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -6,6 +14,26 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
+<!-- SQL QUERIES for city dropdown-->
+<?php 
+$sql = "select city from LOCATION;";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
+
 <body>
   <div class="form">
     <form action = "addDataPOI.php" method = "get">
@@ -13,18 +41,17 @@
       <input type="text" name="poiname" placeholder="poi location name"/>
 
       <select name="City">
-          <option value="city1">city1</option>
-          <option value="city2">city2</option>
-          <option value="city3">city3</option>
           <?php
-            $i = 4;
-            $num = 10;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $city = $row['city'];
+              }          
+            ?>
           
-              <option value= "city<?php echo $i ?>" > city<?php echo $i ?></option>
+              <option value= "$city" > <?php echo $city ?></option>
           
           
 
@@ -33,21 +60,39 @@
             }
           ?>
         </select>
+<?php 
+//query for states
+$sql = "select state from LOCATION;";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
 
       <br>
       <select name="State">
-          <option value="state1">state1</option>
-          <option value="state2">state2</option>
-          <option value="state3">state3</option>
           <?php
-            $i = 4;
-            $num = 10;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $state = $row['state'];
+              }          
+            ?>
           
-              <option value= "state<?php echo $i ?>" > state<?php echo $i ?></option>
+              <option value= "$state" > <?php echo $state ?></option>
           
           
 

@@ -1,3 +1,11 @@
+<?php
+$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+if ($mysqli->connect_errno) {
+  echo "website error";
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -5,6 +13,26 @@
   <title>CS 4400 - Add Data Point</title>  
   <link rel="stylesheet" href="css/style.css">
 </head>
+
+<!-- SQL QUERIES for location dropdown-->
+<?php 
+$sql = "select location_name from POI;";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
 
 <body>
   <div class="form">
@@ -15,13 +43,15 @@
       <select name="locationname">
           <?php
             $i = 0;
-            $num = 10;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $loc = $row['location_name'];
+              }          
+            ?>
           
-              <option value= "<?php echo $i ?> IS THE NUMBER" >NUMBER <?php echo $i ?></option>
+              <option value= "$loc" > <?php echo $loc ?></option>
           
           
 
@@ -29,27 +59,48 @@
           $i++;
             }
           ?>
+        </select>
       </select>
 
 
         <a href= "addDataPOI.php"> add new location</a>
       <br>
 
-      <h4>DATE AND TIME HERE</h4>
+      <br><br>
+      Date and Time: <input type="datetime-local" name="time">
+      <br><br>
+<!-- SQL QUERIES for data type dropdown-->
+<?php 
+$sql = "select type from DATA_TYPE;";
 
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
 
         Data Type <select name="datatype">
-          <option value="Mold">Mold - Hardcode</option>
-          <option value="Air">Air - Hardcode</option>
           <?php
-            $i = 1;
-            $num = 3;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $type = $row['type'];
+              }          
+            ?>
           
-              <option value= "nothardcode<?php echo $i ?>" >datatype <?php echo $i ?></option>
+              <option value= "$type" > <?php echo $type ?></option>
           
           
 
@@ -59,7 +110,6 @@
           ?>
         </select>
         <br><br>
-      
       <input type="number" name="datavalue" placeholder="data value"/>
       
       <button>
