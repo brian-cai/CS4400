@@ -43,7 +43,6 @@ $count=$result->num_rows;
     <form action="adminCityOfficials.php" method="post">
 
       <h1>Pending City Official Accounts</h1>
-      TO DO: INSERT CHECKBOXES AND MARK THEM<br>
       <table border="1" cellspacing="2" cellpadding="2">
       <tr>
             <th>Select </th>
@@ -130,10 +129,6 @@ foreach($_POST['samebox'] as $checkbox) {
   echo $checkbox;
 }
 ?>
-<br>
-
-<br>
-
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="js/index.js"></script>

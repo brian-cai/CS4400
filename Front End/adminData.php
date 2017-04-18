@@ -113,9 +113,7 @@ $count=$result->num_rows;
       <button href="#" input type = "submit">
           Temporary Query Button
       </button>
-
     </form>
-
   </div>
 checkboxes:
 <?php

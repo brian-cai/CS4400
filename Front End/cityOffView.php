@@ -1,3 +1,11 @@
+<?php
+$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+if ($mysqli->connect_errno) {
+  echo "website error";
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -8,6 +16,25 @@
 
 <body>
   <div class="form">
+<!-- SQL QUERIES for location dropdown-->
+<?php 
+$sql = "SELECT location_name FROM POI ORDER BY location_name";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
 
     <form action="cityOffView.php" method="get">
 
@@ -15,75 +42,114 @@
 
       POI Location Name
       <select name="location">
-          <option value="location1">location1</option>
-          <option value="location2">location2</option>
-          <option value="location3">location3</option>
+          <option value= "null" >---</option>
+
           <?php
-            $i = 4;
-            $num = 10;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-
-          ?>
-
-              <option value= "location<?php echo $i ?>" > location<?php echo $i ?></option>
-
-
+              if($row=$result->fetch_assoc()) {
+                 $loc = $row['location_name'];
+              }          
+            ?>
+          
+              <option value= "$loc" > <?php echo $loc ?></option>
+          
+          
 
           <?php
           $i++;
             }
           ?>
-
+        </select>
         </select>
       <br>
+<!-- SQL QUERIES for state dropdown-->
+<?php 
+$sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
 
       City
       <select name="City">
-          <option value="city1">city1</option>
-          <option value="city2">city2</option>
-          <option value="city3">city3</option>
+          <option value= "null" >---</option>
+
           <?php
-            $i = 4;
-            $num = 10;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-
-          ?>
-
-              <option value= "city<?php echo $i ?>" > city<?php echo $i ?></option>
-
-
+              if($row=$result->fetch_assoc()) {
+                 $city = $row['city'];
+              }          
+            ?>
+          
+              <option value= "$city" > <?php echo $city ?></option>
+          
+          
 
           <?php
           $i++;
             }
           ?>
-
         </select>
       <br>
+<!-- SQL QUERIES for state dropdown-->
+<?php 
+$sql = "SELECT DISTINCT state FROM LOCATION ORDER BY state";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
       State
       <select name="State">
-          <option value="state1">state1</option>
-          <option value="state2">state2</option>
-          <option value="state3">state3</option>
+          <option value= "null" >---</option>
+
           <?php
-            $i = 4;
-            $num = 10;
+            $i = 0;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-
-          ?>
-
-              <option value= "state<?php echo $i ?>" > state<?php echo $i ?></option>
-
-
+              if($row=$result->fetch_assoc()) {
+                 $state = $row['state'];
+              }          
+            ?>
+          
+              <option value= "$state" > <?php echo $state ?></option>
+          
+          
 
           <?php
           $i++;
             }
           ?>
-
         </select>
       <br>
 
@@ -91,7 +157,12 @@
 
       <br>
  <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>
- insert date flagged option here
+      <br></br>
+      Time and Date
+      <input type="date" name="lowend">
+      to
+      <input type="date" name="highend">
+
       <br>
       <button>
         <a href="#">
@@ -113,6 +184,30 @@
           Temporary Query Button
       </button>
 
+
+<!--TABLE STARTS HERE -->
+<?php
+$sql = "SELECT *
+FROM POI;";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed.
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+
+
+$count=$result->num_rows;
+
+?>
+
       <br><br>
       <table border="1" cellspacing="2" cellpadding="2">
       <tr>
@@ -126,16 +221,33 @@
 
       <?php
         $i = 0;
-        $num = 10;
+        $num = $count;
         while ($i < $num) {
           //put queries from database here
+         if($row=$result->fetch_assoc()) {
+           $loc = $row['location_name'];
+           $city = $row['city']; 
+           $state =  $row['state'];
+           $zip =  $row['zip'];
+           $flagged =  $row['flagged'];
+           $date_flagged =  $row['date_flagged'];
+           
+}
 
       ?>
 
       <tr>
-            <td><?php echo $i ?></td>
-            <td>placeholder xd <?php echo $i ?></td>
+            <!--queries-->
+            <td><?php echo $loc ?></td>
+            <td><?php echo $city ?></td>
+            <td><?php echo $state ?></td>
+            <td><?php echo $zip ?></td>
+            <td><?php echo $flagged ?></td>
+            <td><?php echo $date_flagged ?></td>
+
+
       </tr>
+
       <?php
       $i++;
         }
@@ -163,6 +275,8 @@ location <?php echo $_GET["location"]; ?> <br>
 City: <?php echo $_GET["City"]; ?> <br>
 State: <?php echo $_GET["State"]; ?> <br>
 Zip Code: <?php echo $_GET["zcode"]; ?> <br>
+low: <?php echo $_GET["lowend"]; ?> <br>
+high: <?php echo $_GET["highend"]; ?> <br>
 
 isflagged? :  <?php
 if (isset($_GET["flagged"])) {

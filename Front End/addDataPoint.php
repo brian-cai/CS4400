@@ -127,6 +127,7 @@ $count=$result->num_rows;
   </div>
 POI location: <?php echo $_GET["locationname"]; ?> <br>
 Data Type: <?php echo $_GET["datatype"]; ?> <br> 
+Time: <?php echo $_GET["time"]; ?> <br> 
 Data Value: <?php echo $_GET["datavalue"]; ?> <br>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

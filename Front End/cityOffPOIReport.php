@@ -1,4 +1,12 @@
-  <!DOCTYPE html>
+<?php
+$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+if ($mysqli->connect_errno) {
+  echo "website error";
+  exit;
+}
+?>
+
+<!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">

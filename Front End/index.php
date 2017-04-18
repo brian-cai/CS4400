@@ -38,16 +38,15 @@ if ($mysqli->connect_errno) {
     <form class="register-form" action = "index.php" method = "post">
       NEW USER REGISTRATION
       <input type="text" name="usernameR" placeholder="username"/>
-      <input type="text" name="email" placeholder="email address"/>
+      <input type="email" name="email" placeholder="email address"/>
       <input type="password" name="password1" placeholder="password"/>
-      <input type="password" name="password2"placeholder="confirm password">
+      <input type="password" name="password2" placeholder="confirm password">
       <!-- dropdown  city officials-->
 
 <!--    <form action="/action_page.php"> -->
         <select name="UserType">
           <option value="official">City Official</option>
           <option value="scientist">City Scientist</option>
-
         </select>
 
 
@@ -55,19 +54,39 @@ if ($mysqli->connect_errno) {
         <br>
 
         <br><br>
-        <select name="City">
-          <option value="city1">Atlanta</option>
-          <option value="city2">Atlanta 2</option>
-          <option value="city3">Atlanta 3</option>
-           <?php
+<!-- SQL QUERIES for city dropdown-->
+<?php 
+$sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
+
+      City
+      <select name="City">
+          <?php
             $i = 0;
-            $num = 10;
+            $num = $count;
             while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $city = $row['city'];
+              }          
+            ?>
           
-              <option value= "<?php echo $i ?> IS THE CITY" >CITY <?php echo $i ?></option>
+              <option value= "$city" > <?php echo $city ?></option>
           
           
 
@@ -76,27 +95,49 @@ if ($mysqli->connect_errno) {
             }
           ?>
         </select>
-        <br>
-        <select name="State">
-          <option value="state1">Georgia</option>
-          <option value="state2">Georgia 2</option>
-          <option value="state3">Georgia 3</option>
-           <?php
-            $j = 11;
-            $num = 110;
-            while ($j < $num) {
+      <br>
+<!-- SQL QUERIES for state dropdown-->
+<?php 
+$sql = "SELECT DISTINCT state FROM LOCATION ORDER BY state";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed. 
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+$count=$result->num_rows;
+
+?>
+      State
+      <select name="State">
+            <?php
+            $i = 0;
+            $num = $count;
+            while ($i < $num) {
               //put queries from database here
-            
-          ?>
+              if($row=$result->fetch_assoc()) {
+                 $state = $row['state'];
+              }          
+            ?>
           
-              <option value= "<?php echo $j ?> IS THE STATE" >STATE <?php echo $j ?></option>
+              <option value= "$state" > <?php echo $state ?></option>
           
           
 
           <?php
-          $j+=10;
+          $i++;
             }
           ?>
+        </select>
+      <br>
+
         </select>
         <input type="text" name="Title" placeholder="Title"/>
 
