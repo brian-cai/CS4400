@@ -61,7 +61,7 @@ $count=$result->num_rows;
 
       <script>
       function sortTable(n) {
-        var table, rows, headers, switching, i, x, y, j, k, q, index, shouldSwitch, dir, switchcount = 0;
+        var table, rows, headers, switching, i, x, y, j, k, num1, num2, q, index, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("report_table");
         switching = true;
         //Set the sorting direction to ascending:
@@ -80,34 +80,70 @@ $count=$result->num_rows;
             shouldSwitch = false;
             /*Get the two elements you want to compare,
             one from current row and one from the next:*/
+
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
             /*check if the two rows should switch place,
             based on the direction, asc or desc:*/
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                //if so, mark as a switch and break the loop:
-                // j = rows[0].getElementsByTagName("b");
-                for (index = 0; index < 11; index++) {
-                  q = rows[0].getElementsByTagName("b")[index];
-                  q.innerHTML = "---";
+            if (n < 3) {
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  // j = rows[0].getElementsByTagName("b");
+                  for (index = 0; index < 11; index++) {
+                    q = rows[0].getElementsByTagName("b")[index];
+                    q.innerHTML = "---";
+                  }
+                  j = rows[0].getElementsByTagName("b")[n];
+                  j.innerHTML = '&#x25BC;';
+                  shouldSwitch= true;
+                  break;
                 }
-                j = rows[0].getElementsByTagName("b")[n];
-                j.innerHTML = '&#x25BC;';
-                shouldSwitch= true;
-                break;
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  for (index = 0; index < 11; index++) {
+                    q = rows[0].getElementsByTagName("b")[index];
+                    q.innerHTML = "---";
+                  }
+                  k = rows[0].getElementsByTagName("b")[n];
+                  k.innerHTML = '&#x25B2;';
+                  shouldSwitch= true;
+                  break;
+                }
               }
-            } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                //if so, mark as a switch and break the loop:
-                for (index = 0; index < 11; index++) {
-                  q = rows[0].getElementsByTagName("b")[index];
-                  q.innerHTML = "---";
+            } else {
+
+              if (isNaN(parseFloat(x.innerHTML))) {num1 = -1}
+               else {num1 = parseFloat(x.innerHTML)}
+              if (isNaN(parseFloat(y.innerHTML))) {num2 = -1}
+               else {num2 = parseFloat(y.innerHTML)}
+
+              if (dir == "asc") {
+                if (num1 > num2) {
+                  //if so, mark as a switch and break the loop:
+                  // j = rows[0].getElementsByTagName("b");
+                  for (index = 0; index < 11; index++) {
+                    q = rows[0].getElementsByTagName("b")[index];
+                    q.innerHTML = "---";
+                  }
+                  j = rows[0].getElementsByTagName("b")[n];
+                  j.innerHTML = '&#x25BC;';
+                  shouldSwitch= true;
+                  break;
                 }
-                k = rows[0].getElementsByTagName("b")[n];
-                k.innerHTML = '&#x25B2;';
-                shouldSwitch= true;
-                break;
+              } else if (dir == "desc") {
+                if (num1 < num2) {
+                  //if so, mark as a switch and break the loop:
+                  for (index = 0; index < 11; index++) {
+                    q = rows[0].getElementsByTagName("b")[index];
+                    q.innerHTML = "---";
+                  }
+                  k = rows[0].getElementsByTagName("b")[n];
+                  k.innerHTML = '&#x25B2;';
+                  shouldSwitch= true;
+                  break;
+                }
               }
             }
           }

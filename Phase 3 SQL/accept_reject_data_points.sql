@@ -18,3 +18,19 @@ WHERE (location_name IN name_inputs AND date_time IN date_time_inputs);
 UPDATE DATA_POINT
 SET approved = 0
 WHERE (location_name IN name_inputs AND date_time IN date_time_inputs);
+
+
+
+-- alternate querry only updates one at a time
+
+
+--ACCEPT DATA POINT with name_input and date_time_input which are both tuples
+
+UPDATE DATA_POINT
+SET approved = 1
+WHERE (location_name = name_input AND date_time IN dt_input);
+
+--REJECT DATA POINT name_inputs and date_time_inputs
+UPDATE DATA_POINT
+SET approved = 0
+WHERE (location_name = name_input AND date_time IN dt_input);
