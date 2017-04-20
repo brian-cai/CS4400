@@ -61,6 +61,7 @@ $count=$result->num_rows;
         while ($i < $num) {
           //put queries from database here
          if($row=$result->fetch_assoc()) {
+           $testing = $row;
            $loc = $row['location_name'];
            $type = $row['type'];
            $value = $row['data_value'];
@@ -73,7 +74,7 @@ $count=$result->num_rows;
 
       <tr>
             <!--checkbox-->
-            <td><input type="checkbox" name="samebox[]" value="<?php echo $i ?>"   </td>
+            <td><input type="checkbox" name="samebox[]" value="<?php echo $row?>"   </td>
             <!--queries-->
             <td><?php echo $loc ?></td>
             <td><?php echo $type ?></td>

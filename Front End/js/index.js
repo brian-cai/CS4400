@@ -3,7 +3,7 @@ $('.message a').click(function(){
 });
 
 
-$('b').click( function() {alert("link to pending data points"); } );
+//$('b').click( function() {alert("link to pending data points"); } );
 
 $('c').click( function() {alert("link to pending city official accounts"); } );
 
