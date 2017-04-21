@@ -25,7 +25,7 @@ if ($mysqli->connect_errno) {
       <input type="text" name="username" placeholder="username"/>
       <input type="password" name="password" placeholder="password"/>
 
-      <button href="#" input type="submit"> Login </a> </button>
+      <button href="#" name="loginB" input type="submit" value=1> Login </a> </button>
       <p class="message">Not registered? <a href="#">Register</a></p>
     </form>
 
@@ -44,18 +44,29 @@ if ($mysqli->connect_errno) {
       <!-- dropdown  city officials-->
 
 <!--    <form action="/action_page.php"> -->
-        <select name="UserType">
-          <option value="city_official">City Official</option>
+        <select name="UserType" onchange="
+        if (this.value=='city_official') {
+          (this.form['City'].style.visibility='visible'),
+          (this.form['State'].style.visibility='visible'),
+          (this.form['Title'].style.visibility='visible')
+        } else {
+          (this.form['City'].style.visibility='hidden'),
+          (this.form['State'].style.visibility='hidden'),
+          (this.form['Title'].style.visibility='hidden')
+          }
+          ;">
           <option value="city_scientist">City Scientist</option>
+          <option value="city_official">City Official</option>
         </select>
 
-
-        TODO: If selected official, you must fill in city and state
-        <br>
-
         <br><br>
+    <!-- </form> -->
+<!-- seperate city official registration from normal -->
+<!--     <form class="city_official_register" action = "index.php" method = "post" style = "visibility:hidden;">
+ -->
 <!-- SQL QUERIES for city dropdown-->
 <?php
+// $dropdown_value = $_POST['UserType'];
 $sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city";
 
 if (!$result = $mysqli->query($sql)) {
@@ -73,9 +84,7 @@ if (!$result = $mysqli->query($sql)) {
 $count=$result->num_rows;
 
 ?>
-
-      City
-      <select name="City">
+      <select name="City" style = "visibility:hidden;">
           <?php
             $i = 0;
             $num = $count;
@@ -85,6 +94,7 @@ $count=$result->num_rows;
                  $city = $row['city'];
               }
             ?>
+
 
               <option value= "<?php echo $city ?>" > <?php echo $city ?></option>
 
@@ -115,8 +125,7 @@ if (!$result = $mysqli->query($sql)) {
 $count=$result->num_rows;
 
 ?>
-      State
-      <select name="State">
+      <select name="State" style = "visibility:hidden;">
             <?php
             $i = 0;
             $num = $count;
@@ -139,7 +148,7 @@ $count=$result->num_rows;
       <br>
 
         </select>
-        <input type="text" name="Title" placeholder="Title"/>
+        <input type="text" name="Title" placeholder="Title" style = "visibility:hidden;"/>
 
 
         <br><br>
@@ -269,69 +278,72 @@ if ($rPressed == 1) {
 
 <!--LOGIC FOR LOGGING IN-->
 <?php
-$sql = "select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');";
+$lPressed = $_POST['loginB'];
+if ($lPressed == 1) {
+  $sql = "select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');";
 
 
-if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed.
-    echo "Sorry, the website is experiencing problems.";
+  if (!$result = $mysqli->query($sql)) {
+      // Oh no! The query failed.
+      echo "Sorry, the website is experiencing problems.";
 
-    // Again, do not do this on a public site, but we'll show you how
-    // to get the error information
-    echo "Error: Our query failed to execute and here is why: <br>";
-    echo "Query: " . $sql . "<br>";
-    echo "Errno: " . $mysqli->errno . "<br>";
-    echo "Error: " . $mysqli->error . "<br>";
-    exit;
-}
-
-//prints out successful logins
-$count=$result->num_rows;
-$result = $mysqli->query($sql);
-while($row=$result->fetch_assoc()) {
-  $usertype = $row['user_type'];
-}
-echo $usertype;
-echo "<br>";
-
-//LOGIC FOR LANDING PAGE FOR USERNAME AND PASSWORD
-if ($count == 1) {
-  if ($usertype == "admin") {
-        echo '<script type="text/javascript" language="javascript">
-    window.open("adminFunction.php","_self");
-    </script>';
+      // Again, do not do this on a public site, but we'll show you how
+      // to get the error information
+      echo "Error: Our query failed to execute and here is why: <br>";
+      echo "Query: " . $sql . "<br>";
+      echo "Errno: " . $mysqli->errno . "<br>";
+      echo "Error: " . $mysqli->error . "<br>";
+      exit;
   }
-  else if ($usertype == "city_scientist") {
-        echo '<script type="text/javascript" language="javascript">
-    window.open("addDataPoint.php","_self");
-    </script>';
+
+  //prints out successful logins
+  $count=$result->num_rows;
+  $result = $mysqli->query($sql);
+  while($row=$result->fetch_assoc()) {
+    $usertype = $row['user_type'];
   }
-  else if ($usertype == "city_official") {
-//  Logic for checking if a city official has been approved before loging them in
-    $sql = "select username,approved from CITY_OFFICIAL where (username = '$username' and approved = 1);";
-    if (!$result = $mysqli->query($sql)) {
-        echo "Sorry, the website is experiencing problems.";
-        echo "Error: Our query failed to execute and here is why: <br>";
-        echo "Query: " . $sql . "<br>";
-        echo "Errno: " . $mysqli->errno . "<br>";
-        echo "Error: " . $mysqli->error . "<br>";
-        exit;
+  echo $usertype;
+  echo "<br>";
+
+  //LOGIC FOR LANDING PAGE FOR USERNAME AND PASSWORD
+  if ($count == 1) {
+    if ($usertype == "admin") {
+          echo '<script type="text/javascript" language="javascript">
+      window.open("adminFunction.php","_self");
+      </script>';
     }
-        $count=$result->num_rows;
+    else if ($usertype == "city_scientist") {
+          echo '<script type="text/javascript" language="javascript">
+      window.open("addDataPoint.php","_self");
+      </script>';
+    }
+    else if ($usertype == "city_official") {
+  //  Logic for checking if a city official has been approved before loging them in
+      $sql = "select username,approved from CITY_OFFICIAL where (username = '$username' and approved = 1);";
+      if (!$result = $mysqli->query($sql)) {
+          echo "Sorry, the website is experiencing problems.";
+          echo "Error: Our query failed to execute and here is why: <br>";
+          echo "Query: " . $sql . "<br>";
+          echo "Errno: " . $mysqli->errno . "<br>";
+          echo "Error: " . $mysqli->error . "<br>";
+          exit;
+      }
+          $count=$result->num_rows;
 
-    if ($count == 1) {
-        echo '<script type="text/javascript" language="javascript">
-    window.open("cityOffFunction.php","_self");
-    </script>';
-    } else { ?><script> alert("Login Failure: City Official has not been approved by Admin"); </script> <?php }
+      if ($count == 1) {
+          echo '<script type="text/javascript" language="javascript">
+      window.open("cityOffFunction.php","_self");
+      </script>';
+      } else { ?><script> alert("Login Failure: City Official has not been approved by Admin"); </script> <?php }
+    }
+  } else {?> <script> alert("Login Failure: improper credentials"); </script> <?php }
+
+
+  echo "Login Results: $count <br>";
+  $result = $mysqli->query($sql);
+  while($row=$result->fetch_assoc()) {
+  printf("email: %s<br>type: %s", $row['email'], $row['user_type']);
   }
-} else {?> <script> alert("Login Failure: improper credentials"); </script> <?php }
-
-
-echo "Login Results: $count <br>";
-$result = $mysqli->query($sql);
-while($row=$result->fetch_assoc()) {
-printf("email: %s<br>type: %s", $row['email'], $row['user_type']);
 }
 ?>
 
