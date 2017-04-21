@@ -97,17 +97,13 @@ $count=$result->num_rows;
         </a>
       </button>
       
-      <button>
-        <a href="#">        
+      <button href = "#" name="reject" input type="submit" value=2>
           Reject
-        </a>
       </button>
 
 
-      <button>
-        <a href="#">        
+      <button href="#" name="accept" input type="submit" value=1>
           Accept
-        </a>
       </button>
 <br><br>
 
@@ -118,6 +114,29 @@ $count=$result->num_rows;
     </form>
 
   </div>
+
+
+reject value:
+<?php 
+echo $_POST['reject'];
+echo "<br>"
+?>
+accept value:
+<?php
+echo $_POST['accept'];
+echo "<br>"
+?>
+added together:
+<?php
+echo $_POST['accept'] + $_POST['reject'];
+$accept = $_POST['accept'] + $_POST['reject'];
+echo "<br>"
+?>
+accept value: 
+<?php
+echo $accept;
+echo "<br>"
+?>
 checkboxes: 
 <!-- <?php 
 //if (isset($_POST['check1'])) {
@@ -129,6 +148,7 @@ foreach($_POST['samebox'] as $checkbox) {
   echo $checkbox;
 }
 ?> -->
+<?php $decrementer = 0?>
 
 <?php
 foreach ($_POST['samebox'] as $value) {
@@ -137,6 +157,7 @@ foreach ($_POST['samebox'] as $value) {
 FROM USER AS U
 INNER JOIN CITY_OFFICIAL AS C ON U.username = C.username
 WHERE approved IS NULL;";
+
 
   $count=$result->num_rows;
   if (!$result = $mysqli->query($sql)) {
@@ -151,28 +172,64 @@ WHERE approved IS NULL;";
       echo "Error: " . $mysqli->error . "<br>";
       exit;
   }
+  
 
         $i = 0;
         $num = $count;
         while ($i < $num) {
           //put queries from database here
-         if($row=$result->fetch_assoc()) {
+                if($row=$result->fetch_assoc()) {
 
-             if ($i == $value) {
-             echo $row['username'];
-             echo "<br>";
-             echo $row['email'];
-             echo "<br>";
-             echo $row['city'];
-             echo "<br>";
-             echo $row['state'];
-             echo "<br>";
-             echo $row['title'];
-             echo "<br>";
-             echo "<br>";          
+                         if ($i == $value-$decrementer) {
+                         echo $row['username'];
+                         echo "<br>";
+                         echo $row['email'];
+                         echo "<br>";
+                         echo $row['city'];
+                         echo "<br>";
+                         echo $row['state'];
+                         echo "<br>";
+                         echo $row['title'];
+                         echo "<br>";
 
-             }
-           }
+                         $username = $row['username']; 
+                                  if ($accept == 1) {
+                                    $updatesql = "UPDATE CITY_OFFICIAL
+                                      SET approved = 1
+                                      WHERE (username = '$username');";
+                                      //$i--;
+                                      //$value--;
+                                      $decrementer++;
+                                  } else if ($accept == 2) {
+                                     $updatesql = "UPDATE CITY_OFFICIAL
+                                       SET approved = 0
+                                       WHERE (username = '$username');";
+                                      //$i--;
+                                      //$value--;
+                                       $decrementer++;
+                                  }
+
+                                  if ($accept > 0) {
+                                    if (!$result2 = $mysqli->query($updatesql)) {
+                                        // Oh no! The query failed.
+                                        echo "Sorry, the website is experiencing problems.";
+
+                                        // Again, do not do this on a public site, but we'll show you how
+                                        // to get the error information
+                                        echo "Error: Our query failed to execute and here is why: <br>";
+                                        echo "Query: " . $sql . "<br>";
+                                        echo "Errno: " . $mysqli->errno . "<br>";
+                                        echo "Error: " . $mysqli->error . "<br>";
+                                        exit;
+                                    }
+
+
+                                    echo '<script type="text/javascript" language="javascript"> 
+                                          window.open("adminCityOfficials.php","_self"); 
+                                          </script>'; 
+                                  }
+                         }
+                  }                        
            $i++;
        }
     
