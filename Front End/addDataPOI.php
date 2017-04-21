@@ -51,7 +51,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$city" > <?php echo $city ?></option>
+              <option value= "<?php echo $city ?>"> <?php echo $city ?></option>
 
 
 
@@ -92,7 +92,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$state" > <?php echo $state ?></option>
+              <option value= "<?php echo $state ?>" > <?php echo $state ?></option>
 
 
 
@@ -103,11 +103,10 @@ $count=$result->num_rows;
         </select>
       <br>
 
-        <input type="number" name="zcode" placeholder="zip code"/>
+        <input type="number" pattern = "[0-9]{5}" name="zcode" placeholder="zip code"/>
 
-      <button input type="submit">
-          <a href="#" >Submit
-        </a>
+      <button href="#" input type="submit">
+          Submit
       </button>
     </form>
 
@@ -124,9 +123,41 @@ $count=$result->num_rows;
 
 POI name <?php echo $_GET["poiname"]; ?> <br>
 City: <?php echo $_GET["City"]; ?> <br>
-      State: <?php echo $_GET["State"]; ?> <br>
-      Zip Code: <?php echo $_GET["zcode"]; ?> <br>
+State: <?php echo $_GET["State"]; ?> <br>
+Zip Code: <?php echo $_GET["zcode"]; ?> <br>
 
+<!--so below I will make these variables-->
+<?php $poiname = $_GET["poiname"]; ?>
+<?php $city = $_GET["City"]; ?>
+<?php $state = $_GET["State"]; ?>
+<?php $zip = $_GET["zcode"]; ?>
+
+<?php
+if (strlen($zip) != 5 and strlen($zip) > 0) {
+?>
+<script>alert("Zip Code not five numbers! Fix it!");</script>
+<?php
+exit;
+}
+?>
+Query happens below
+<?php
+$sql = "INSERT INTO POI VALUES( '$poiname', '$zip', '0', NULL, '$city', '$state' );";
+echo "$sql";
+
+if (!$result = $mysqli->query($sql)) {
+    // Oh no! The query failed.
+    echo "Sorry, the website is experiencing problems.";
+
+    // Again, do not do this on a public site, but we'll show you how
+    // to get the error information
+    echo "Error: Our query failed to execute and here is why: <br>";
+    echo "Query: " . $sql . "<br>";
+    echo "Errno: " . $mysqli->errno . "<br>";
+    echo "Error: " . $mysqli->error . "<br>";
+    exit;
+}
+?>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="js/index.js"></script>
