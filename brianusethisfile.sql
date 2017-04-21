@@ -1,0 +1,1 @@
+UPDATE CITY_OFFICIAL SET approved = NULL;

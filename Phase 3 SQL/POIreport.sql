@@ -50,3 +50,19 @@ LEFT JOIN air_report_test AS a
   on m.location_name = a.location_name
 LEFT JOIN count_flagged as c
   on m.location_name = c.location_name
+UNION
+SELECT c.location_name, c.city, c.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
+FROM count_flagged as c
+LEFT JOIN air_report_test AS a
+  on c.location_name = a.location_name
+LEFT JOIN mold_report_test AS m
+  on c.location_name = m.location_name
+
+ --man fuck this shit
+ DROP VIEW IF EXISTS count_flagged_new;
+ CREATE VIEW count_flagged_new AS
+ SELECT p.location_name, p.city, p.state, count(*) AS number_points, p.flagged AS flagged
+ FROM DATA_POINT as d
+ RIGHT JOIN POI as p
+    on d.location_name
+-- GROUP BY d.location_name;
