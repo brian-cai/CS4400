@@ -10,25 +10,25 @@ if ($mysqli->connect_errno) {
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>CS 4400 - Home Page</title>  
+  <title>CS 4400 - Home Page</title>
   <link rel="stylesheet" href="css/style.css">
 
-  
+
 </head>
 
 <body>
   <div class="form">
-    
+
     <!--LOGIN FORM -->
     <form class="login-form" action = "index.php" method = "post">
       LOGIN
       <input type="text" name="username" placeholder="username"/>
       <input type="password" name="password" placeholder="password"/>
 
-      <button href="#" input type="submit"> Login </a> </button>         
+      <button href="#" input type="submit"> Login </a> </button>
       <p class="message">Not registered? <a href="#">Register</a></p>
     </form>
-    
+
 
 
 
@@ -55,11 +55,11 @@ if ($mysqli->connect_errno) {
 
         <br><br>
 <!-- SQL QUERIES for city dropdown-->
-<?php 
+<?php
 $sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -83,12 +83,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $city = $row['city'];
-              }          
+              }
             ?>
-          
+
               <option value= "$city" > <?php echo $city ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -97,11 +97,11 @@ $count=$result->num_rows;
         </select>
       <br>
 <!-- SQL QUERIES for state dropdown-->
-<?php 
+<?php
 $sql = "SELECT DISTINCT state FROM LOCATION ORDER BY state";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -124,12 +124,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $state = $row['state'];
-              }          
+              }
             ?>
-          
+
               <option value= "$state" > <?php echo $state ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -141,7 +141,7 @@ $count=$result->num_rows;
         </select>
         <input type="text" name="Title" placeholder="Title"/>
 
-        
+
         <br><br>
       <!--</form>-->
       <button href="#" input type="submit">Create</button>
@@ -171,12 +171,12 @@ title: <?php echo $_POST["Title"]; ?> <br>
 <br>
 
 <!--LOGIC FOR LOGGING IN-->
-<?php 
+<?php
 $sql = "select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');";
 
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -200,21 +200,36 @@ echo "<br>";
 //LOGIC FOR LANDING PAGE FOR USERNAME AND PASSWORD
 if ($count == 1) {
   if ($usertype == "admin") {
-        echo '<script type="text/javascript" language="javascript"> 
-    window.open("adminFunction.php","_self"); 
-    </script>'; 
+        echo '<script type="text/javascript" language="javascript">
+    window.open("adminFunction.php","_self");
+    </script>';
   }
   else if ($usertype == "city_scientist") {
-        echo '<script type="text/javascript" language="javascript"> 
-    window.open("addDataPoint.php","_self"); 
-    </script>'; 
+        echo '<script type="text/javascript" language="javascript">
+    window.open("addDataPoint.php","_self");
+    </script>';
   }
   else if ($usertype == "city_official") {
-        echo '<script type="text/javascript" language="javascript"> 
-    window.open("cityOffFunction.php","_self"); 
-    </script>'; 
+//  Logic for checking if a city official has been approved before loging them in
+    $sql = "select username,approved from CITY_OFFICIAL where (username = '$username' and approved = 1);";
+    if (!$result = $mysqli->query($sql)) {
+        echo "Sorry, the website is experiencing problems.";
+        echo "Error: Our query failed to execute and here is why: <br>";
+        echo "Query: " . $sql . "<br>";
+        echo "Errno: " . $mysqli->errno . "<br>";
+        echo "Error: " . $mysqli->error . "<br>";
+        exit;
+    }
+        $count=$result->num_rows;
+
+    if ($count == 1) {
+        echo '<script type="text/javascript" language="javascript">
+    window.open("cityOffFunction.php","_self");
+    </script>';
+    }
   }
 }
+
 
 echo "Login Results: $count <br>";
 $result = $mysqli->query($sql);
