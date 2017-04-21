@@ -19,3 +19,17 @@ WHERE (username IN username_inputs);
 UPDATE CITY_OFFICIAL
 SET approved = 0
 WHERE (username IN username_inputs);
+
+
+
+-- alternate querry only updates one at a time
+
+--ACCEPT city official based on username_input selected
+UPDATE CITY_OFFICIAL
+SET approved = 1
+WHERE (username = username_input);
+
+--REJECT city official based on username_input selected
+UPDATE CITY_OFFICIAL
+SET approved = 0
+WHERE (username = username_input);
