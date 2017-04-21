@@ -108,9 +108,6 @@ $count=$result->num_rows;
 <br><br>
 
 
-      <button href="#" input type = "submit">
-          Temporary Query Button
-      </button>
     </form>
 
   </div>

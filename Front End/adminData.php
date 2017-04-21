@@ -192,29 +192,43 @@ $count=$result->num_rows;
       <br><br>
 
       <button>
-        <a href="adminFunction.php">
+        <a href="adminData.php">
           Back
         </a>
       </button>
-      <button>
-        <a href="#">
+      <button href = "#" name="reject" input type="submit" value=2>
           Reject
-        </a>
       </button>
-      <button>
-        <a href="#">
+
+
+      <button href="#" name="accept" input type="submit" value=1>
           Accept
-        </a>
-      </button>
-<br><br>
-
-
-      <button href="#" input type = "submit">
-          Temporary Query Button
       </button>
     </form>
   </div>
+reject value:
+<?php 
+echo $_POST['reject'];
+echo "<br>"
+?>
+accept value:
+<?php
+echo $_POST['accept'];
+echo "<br>"
+?>
+added together:
+<?php
+echo $_POST['accept'] + $_POST['reject'];
+$accept = $_POST['accept'] + $_POST['reject'];
+echo "<br>"
+?>
+accept value: 
+<?php
+echo $accept;
+echo "<br>"
+?>
 checkboxes:
+<?php $decrementer = 0?>
 
 <?php
 foreach ($_POST['samebox'] as $value) {
@@ -243,17 +257,60 @@ foreach ($_POST['samebox'] as $value) {
           //put queries from database here
          if($row=$result->fetch_assoc()) {
 
-             if ($i == $value) {
-             echo $row['location_name'];
-             echo "<br>";
-             echo $row['type'];
-             echo "<br>";
-             echo $row['data_value'];
-             echo "<br>";
-             echo $row['date_time'];
-             echo "<br>";
-             echo "<br>";
-             }
+             if ($i == $value-$decrementer) {
+               echo $row['location_name'];
+               echo "<br>";
+               echo $row['type'];
+               echo "<br>";
+               echo $row['data_value'];
+               echo "<br>";
+               echo $row['date_time'];
+               echo "<br>";
+               echo "<br>";
+
+
+                         $name_input = $row['location_name']; 
+                         $dt_input = $row['date_time'];
+                                  if ($accept == 1) {
+                                    $updatesql = "UPDATE DATA_POINT
+                                        SET approved = 1
+                                        WHERE (location_name = '$name_input' AND date_time = '$dt_input');";
+                                      //$i--;
+                                      //$value--;
+                                      $decrementer++;
+                                  } else if ($accept == 2) {
+                                     $updatesql = "UPDATE DATA_POINT
+                                        SET approved = 0
+                                        WHERE (location_name = '$name_input' AND date_time = '$dt_input');";
+                                      //$i--;
+                                      //$value--;*/
+                                       $decrementer++;
+                                  }
+
+                                  if ($accept > 0) {
+                                    if (!$result2 = $mysqli->query($updatesql)) {
+                                        // Oh no! The query failed.
+                                        echo "Sorry, the website is experiencing problems.";
+
+                                        // Again, do not do this on a public site, but we'll show you how
+                                        // to get the error information
+                                        echo "Error: Our query failed to execute and here is why: <br>";
+                                        echo "Query: " . $result2 . "<br>";
+                                        echo "Errno: " . $mysqli->errno . "<br>";
+                                        echo "Error: " . $mysqli->error . "<br>";
+                                        exit;
+                                    }
+                                  
+
+
+                                    echo '<script type="text/javascript" language="javascript"> 
+                                          window.open("adminData.php","_self"); 
+                                          </script>'; 
+
+                                }
+                                  
+              }
+
            }
            $i++;
        }
@@ -262,12 +319,27 @@ foreach ($_POST['samebox'] as $value) {
 ?>
 
 <br>
-<!--old loop-->
+
+reject value:
+<?php 
+echo $_POST['reject'];
+echo "<br>"
+?>
+accept value:
 <?php
-// foreach ($_POST['samebox'] as $value) {
-//   echo $value;
-//   echo "<br>";
-// }
+echo $_POST['accept'];
+echo "<br>"
+?>
+added together:
+<?php
+echo $_POST['accept'] + $_POST['reject'];
+$accept = $_POST['accept'] + $_POST['reject'];
+echo "<br>"
+?>
+accept value: 
+<?php
+echo $accept;
+echo "<br>"
 ?>
 
 
