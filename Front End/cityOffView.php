@@ -54,7 +54,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$loc" > <?php echo $loc ?></option>
+              <option value= "<?php echo $loc ?>" > <?php echo $loc ?></option>
 
 
 
@@ -99,7 +99,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$city" > <?php echo $city ?></option>
+              <option value= "<?php echo $city ?>" > <?php echo $city ?></option>
 
 
 
@@ -142,7 +142,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$state" > <?php echo $state ?></option>
+              <option value= "<?php echo $state ?>" > <?php echo $state ?></option>
 
 
 
@@ -187,8 +187,49 @@ $count=$result->num_rows;
 
 <!--TABLE STARTS HERE -->
 <?php
-$sql = "SELECT *
-FROM POI;";
+//$sql = "SELECT *
+//FROM POI;";
+$loc = $_GET["location"]; 
+$city = $_GET["City"]; 
+$state = $_GET["State"]; 
+$zcode = $_GET["zcode"];
+if (empty($zcode)){
+  $zcode = "NULL";
+}
+$lowend = $_GET["lowend"]; 
+if (empty($lowend)) {
+  $lowend = "NULL";
+}
+$highend = $_GET["highend"]; 
+if (empty($highend)) {
+  $highend = "NULL";
+}
+if (isset($_GET["flagged"])) {
+   // do something
+$flagged = 1;
+} else {
+$flagged = 0;
+}
+
+
+$sql = "select * from POI where
+    ('$loc' IS NULL OR location_name = '$loc') and
+    ('$city' IS NULL OR city = '$city') and
+    ('$state' IS NULL OR state = '$state') and
+    ('$zcode' IS NULL OR zip = '$zcode') and
+    ('$flagged' IS NULL OR flagged = '$flagged') and
+    ('$lowend' IS NULL OR '$highend' IS NULL OR (date_flagged >= '$lowend' AND date_flagged <= '$highend'));";
+?>
+<br>
+location: <?php echo $_GET["location"]; ?> <br>
+City: <?php echo $_GET["City"]; ?> <br>
+State: <?php echo $_GET["State"]; ?> <br>
+Zip Code: <?php echo $zcode; ?> <br>
+low: <?php echo $lowend; ?> <br>
+high: <?php echo $highend; ?> <br>
+
+<?php
+
 
 if (!$result = $mysqli->query($sql)) {
     // Oh no! The query failed.
@@ -279,13 +320,11 @@ low: <?php echo $_GET["lowend"]; ?> <br>
 high: <?php echo $_GET["highend"]; ?> <br>
 
 isflagged? :  <?php
-if (isset($_GET["flagged"])) {
-   // do something
-  echo "yes";
-} else {
-  echo "no";
-}
+echo $flagged
 ?>
+<br>
+Query happens below
+<br>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

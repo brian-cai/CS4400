@@ -192,7 +192,7 @@ $count=$result->num_rows;
       <br><br>
 
       <button>
-        <a href="adminData.php">
+        <a href="adminFunction.php">
           Back
         </a>
       </button>
