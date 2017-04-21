@@ -1,0 +1,25 @@
+## StringBuilder
+String name_input = ##object reference to input
+String city_input = #object reference to input
+String state_input = #object reference to input
+String zip_input = #object reference to input
+String flag_input = #object reference to input
+String dflag_input = #object reference to input
+
+stringBuilder += "SELECT * FROM POI WHERE";
+boolean isIn = false ;
+if (name_input.length() > 0):
+	stringBuilder = stringBuilder + "username = " + username_input;
+if (city_input.length() > 0):
+	stringBuilder = stringBuilder + "city = " + city_input;
+if (state_input.length() > 0):
+	stringBuilder = stringBuilder + "state = " + state_input;
+if (zip_input.length() > 0):
+	stringBuilder = stringBuilder + "zip = " + zip_input;
+if (flag_input.length() > 0):
+	stringBuilder = stringBuilder + "flag = " + flag_input;
+if (dflag_input.length() > 0):
+	stringBuilder = stringBuilder + "date_flagged = " + dflag_input;
+
+
+
