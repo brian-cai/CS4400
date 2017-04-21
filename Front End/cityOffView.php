@@ -194,15 +194,15 @@ $city = $_GET["City"];
 $state = $_GET["State"]; 
 $zcode = $_GET["zcode"];
 if (empty($zcode)){
-  $zcode = "NULL";
+  $zcode = null;
 }
 $lowend = $_GET["lowend"]; 
 if (empty($lowend)) {
-  $lowend = "NULL";
+  $lowend = null;
 }
 $highend = $_GET["highend"]; 
 if (empty($highend)) {
-  $highend = "NULL";
+  $highend = null;
 }
 if (isset($_GET["flagged"])) {
    // do something
@@ -221,9 +221,9 @@ $sql = "select * from POI where
     ('$lowend' IS NULL OR '$highend' IS NULL OR (date_flagged >= '$lowend' AND date_flagged <= '$highend'));";
 ?>
 <br>
-location: <?php echo $_GET["location"]; ?> <br>
-City: <?php echo $_GET["City"]; ?> <br>
-State: <?php echo $_GET["State"]; ?> <br>
+location: <?php echo $loc; ?> <br>
+City: <?php echo $city; ?> <br>
+State: <?php echo $state; ?> <br>
 Zip Code: <?php echo $zcode; ?> <br>
 low: <?php echo $lowend; ?> <br>
 high: <?php echo $highend; ?> <br>
