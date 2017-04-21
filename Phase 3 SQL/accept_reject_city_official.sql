@@ -22,7 +22,7 @@ WHERE (username IN username_inputs);
 
 
 
--- alternate querry only updates one at a time
+-- alternate query only updates one at a time
 
 --ACCEPT city official based on username_input selected
 UPDATE CITY_OFFICIAL
