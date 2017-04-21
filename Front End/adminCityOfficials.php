@@ -119,7 +119,7 @@ $count=$result->num_rows;
 
   </div>
 checkboxes: 
-<?php 
+<!-- <?php 
 //if (isset($_POST['check1'])) {
 //if (true) {
   //echo "lol";
@@ -128,6 +128,55 @@ foreach($_POST['samebox'] as $checkbox) {
    // do something
   echo $checkbox;
 }
+?> -->
+
+<?php
+foreach ($_POST['samebox'] as $value) {
+
+  $sql = "SELECT U.username, U.email, C.city, C.state, C.approved, C.title
+FROM USER AS U
+INNER JOIN CITY_OFFICIAL AS C ON U.username = C.username
+WHERE approved IS NULL;";
+
+  $count=$result->num_rows;
+  if (!$result = $mysqli->query($sql)) {
+      // Oh no! The query failed.
+      echo "Sorry, the website is experiencing problems.";
+
+      // Again, do not do this on a public site, but we'll show you how
+      // to get the error information
+      echo "Error: Our query failed to execute and here is why: <br>";
+      echo "Query: " . $sql . "<br>";
+      echo "Errno: " . $mysqli->errno . "<br>";
+      echo "Error: " . $mysqli->error . "<br>";
+      exit;
+  }
+
+        $i = 0;
+        $num = $count;
+        while ($i < $num) {
+          //put queries from database here
+         if($row=$result->fetch_assoc()) {
+
+             if ($i == $value) {
+             echo $row['username'];
+             echo "<br>";
+             echo $row['email'];
+             echo "<br>";
+             echo $row['city'];
+             echo "<br>";
+             echo $row['state'];
+             echo "<br>";
+             echo $row['title'];
+             echo "<br>";
+             echo "<br>";          
+
+             }
+           }
+           $i++;
+       }
+    
+   }
 ?>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

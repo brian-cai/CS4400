@@ -85,7 +85,7 @@ $count=$result->num_rows;
             y = rows[i + 1].getElementsByTagName("TD")[n];
             /*check if the two rows should switch place,
             based on the direction, asc or desc:*/
-            if (n < 3) {
+            if (n < 3 || n == 10) {
               if (dir == "asc") {
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                   //if so, mark as a switch and break the loop:
@@ -198,7 +198,7 @@ $count=$result->num_rows;
             <td><?php echo $AQ_AVG ?></td>
             <td><?php echo $AQ_Max ?></td>
             <td><?php echo $num_of_pts ?></td>
-            <td><?php echo $flagged ?></td>
+            <td><?php echo (($flagged)? 'yes' : 'no'); ?></td>
 
       </tr>
       <?php
