@@ -45,8 +45,8 @@ if ($mysqli->connect_errno) {
 
 <!--    <form action="/action_page.php"> -->
         <select name="UserType">
-          <option value="official">City Official</option>
-          <option value="scientist">City Scientist</option>
+          <option value="city_official">City Official</option>
+          <option value="city_scientist">City Scientist</option>
         </select>
 
 
@@ -144,7 +144,7 @@ $count=$result->num_rows;
 
         <br><br>
       <!--</form>-->
-      <button href="#" input type="submit">Create</button>
+      <button href="#" name = "register" input type="submit" value = 1><d>Create</d></button>
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
 
@@ -170,6 +170,45 @@ REGISTER QUERY DATA <br>
     title: <?php echo $_POST["Title"]; ?> <br>
 <br>
 
+<!-- // CREATE VARIABLES FOR Registration -->
+<?php
+$usernameR = $_POST["usernameR"];
+$password1 = $_POST["password1"];
+$password2 = $_POST["password2"];
+$rEmail = $_POST["email"];
+$UserType = $_POST["UserType"];
+$rCity = $_POST["City"];
+$rState = $_POST["State"];
+$rTitle = $_POST["Title"];
+
+echo $_POST["UserType"];
+?>
+
+
+<!--LOGIC FOR Registration-->
+<?php
+$rPressed = $_POST['register'];
+if ($rPressed == 1) {
+  if ($password1 != $password2) {
+    ?>
+    <script>alert("password and confirm passsword do not match");</script>
+
+    <?php } else {
+
+    if ($UserType == 'city_scientist') {
+      $register1 = "insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');";
+      if (!$result = $mysqli->query($register1)) {
+          echo "Sorry, the website is experiencing problems.";
+          echo "Error: Our query failed to execute and here is why: <br>";
+          echo "Query: " . $register1 . "<br>";
+          echo "Errno: " . $mysqli->errno . "<br>";
+          echo "Error: " . $mysqli->error . "<br>";
+          exit;
+      }
+    }
+  }
+}
+?>
 
 <!--LOGIC FOR LOGGING IN-->
 <?php

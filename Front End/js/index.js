@@ -7,6 +7,8 @@ $('.message a').click(function(){
 
 $('c').click( function() {alert("link to pending city official accounts"); } );
 
-$('d').click( function() {alert("logout button"); } );
+$('d').click( function() {} );
 
 $('submitted').click( function() {alert("placeholder for submit!");})
+
+

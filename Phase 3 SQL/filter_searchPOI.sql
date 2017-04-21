@@ -16,7 +16,7 @@ select * from POI where
     (state_input IS NULL OR state = state_input) and
     (zip_input IS NULL OR zip = zip_input) and
     (flagged_input IS NULL OR flagged = flagged_input) and
-    (dflag_input IS NULL OR date_flagged = dflag_input);
+    (lowDate_input IS NULL OR highDate_input IS NULL OR (date_time >= lowDate_input AND date_time <= highDate_input));
 
 
 
