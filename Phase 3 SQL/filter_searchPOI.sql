@@ -25,11 +25,12 @@ select * from POI where
 
 select * from POI where
     (null IS NULL OR location_name = null) and
-    ('Atlanta' IS NULL OR city = 'Atlanta') and
+    (null IS NULL OR city = null) and
     (null IS NULL OR state = null) and
-    (30332 IS NULL OR zip = 30332) and
+    (null IS NULL OR zip = null) and
     (null IS NULL OR flagged = null) and
-    (null IS NULL OR date_flagged = null);
+    (null IS NULL OR null IS NULL OR (null >= null AND null <= null));
+
 
 
 -- select * from POI where

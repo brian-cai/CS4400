@@ -86,7 +86,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$city" > <?php echo $city ?></option>
+              <option value= "<?php echo $city ?>" > <?php echo $city ?></option>
 
 
 
@@ -127,7 +127,7 @@ $count=$result->num_rows;
               }
             ?>
 
-              <option value= "$state" > <?php echo $state ?></option>
+              <option value= "<?php echo $state ?>" > <?php echo $state ?></option>
 
 
 
@@ -191,19 +191,64 @@ $rPressed = $_POST['register'];
 if ($rPressed == 1) {
   if ($password1 != $password2) {
     ?>
-    <script>alert("password and confirm passsword do not match");</script>
+    <script>alert("Error:password and confirm passsword do not match");</script>
 
     <?php } else {
 
     if ($UserType == 'city_scientist') {
       $register1 = "insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');";
+
       if (!$result = $mysqli->query($register1)) {
-          echo "Sorry, the website is experiencing problems.";
-          echo "Error: Our query failed to execute and here is why: <br>";
-          echo "Query: " . $register1 . "<br>";
-          echo "Errno: " . $mysqli->errno . "<br>";
-          echo "Error: " . $mysqli->error . "<br>";
+        echo "Sorry, the website is experiencing problems.";
+        echo "Error: Our query failed to execute and here is why: <br>";
+        echo "Query: " . $register1 . "<br>";
+        echo "Errno: " . $mysqli->errno . "<br>";
+        $eCode = $mysqli->errno;
+        echo "Error: " . $mysqli->error . "<br>";
+        if ($eCode != 1062) {
           exit;
+        } else {
+          ?>
+          <script>alert("Error:That username is already taken")</script>
+          <?php
+        }
+      }
+    }
+    if ($UserType == 'city_official') {
+      echo $_POST["rCity"];
+      echo $_POST["rState"];
+
+      $register1 = "insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');";
+      ?><script></script> <?php
+      $register2 = "insert into CITY_OFFICIAL values('$usernameR', '$rTitle', 'null', '$rCity', '$rState');";
+      if (!$result = $mysqli->query($register1)) {
+        echo "Sorry, the website is experiencing problems.";
+        echo "Error: Our query failed to execute and here is why: <br>";
+        echo "Query: " . $register1 . "<br>";
+        echo "Errno: " . $mysqli->errno . "<br>";
+        $eCode = $mysqli->errno;
+        echo "Error: " . $mysqli->error . "<br>";
+        if ($eCode != 1062) {
+          exit;
+        } else {
+          ?>
+          <script>alert("Error:That username is already taken")</script>
+          <?php
+        }
+      } else if (!$result = $mysqli->query($register2)) {
+        echo "Sorry, the website is experiencing problems.";
+        echo "Error: Our query failed to execute and here is why: <br>";
+        echo "Query: " . $register2 . "<br>";
+        echo "Errno: " . $mysqli->errno . "<br>";
+        $eCode = $mysqli->errno;
+        echo "Error: " . $mysqli->error . "<br>";
+        if ($eCode != 1062) {
+          exit;
+        } else {
+          ?>
+          <script>alert("Error:That username is already taken")</script>
+          <?php
+        }
       }
     }
   }
