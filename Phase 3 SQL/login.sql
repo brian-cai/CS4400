@@ -18,5 +18,6 @@ SELECT approved
 FROM CITY_OFFICIAL
 WHERE username = un_input
 ## code will have to handle the error. 
-## If approved == NULL (i.e city_official is pending)
-##		deny access to the application (i.e show error)
+## only gives access to approved city_official
+## If approved == 1 (i.e city_official is approved)
+##		allow access to the application 
