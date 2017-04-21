@@ -205,12 +205,16 @@ if ($rPressed == 1) {
         echo "Errno: " . $mysqli->errno . "<br>";
         $eCode = $mysqli->errno;
         echo "Error: " . $mysqli->error . "<br>";
-        if ($eCode != 1062) {
-          exit;
-        } else {
+        if ($eCode == 1062) {
           ?>
           <script>alert("Error:That username is already taken")</script>
           <?php
+        } else if ($eCode == 1452) {
+          ?>
+          <script>alert("Error:Invalid Location")</script>
+          <?php
+        } else {
+          exit;
         }
       }
     }
@@ -220,7 +224,7 @@ if ($rPressed == 1) {
 
       $register1 = "insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');";
       ?><script></script> <?php
-      $register2 = "insert into CITY_OFFICIAL values('$usernameR', '$rTitle', 'null', '$rCity', '$rState');";
+      $register2 = "insert into CITY_OFFICIAL values('$usernameR', '$rTitle', NULL, '$rCity', '$rState');";
       if (!$result = $mysqli->query($register1)) {
         echo "Sorry, the website is experiencing problems.";
         echo "Error: Our query failed to execute and here is why: <br>";
@@ -228,12 +232,16 @@ if ($rPressed == 1) {
         echo "Errno: " . $mysqli->errno . "<br>";
         $eCode = $mysqli->errno;
         echo "Error: " . $mysqli->error . "<br>";
-        if ($eCode != 1062) {
-          exit;
-        } else {
+        if ($eCode == 1062) {
           ?>
           <script>alert("Error:That username is already taken")</script>
           <?php
+        } else if ($eCode == 1452) {
+          ?>
+          <script>alert("Error:Invalid Location")</script>
+          <?php
+        } else {
+          exit;
         }
       } else if (!$result = $mysqli->query($register2)) {
         echo "Sorry, the website is experiencing problems.";
@@ -242,12 +250,16 @@ if ($rPressed == 1) {
         echo "Errno: " . $mysqli->errno . "<br>";
         $eCode = $mysqli->errno;
         echo "Error: " . $mysqli->error . "<br>";
-        if ($eCode != 1062) {
-          exit;
-        } else {
+        if ($eCode == 1062) {
           ?>
           <script>alert("Error:That username is already taken")</script>
           <?php
+        } else if ($eCode == 1452) {
+          ?>
+          <script>alert("Error:Invalid Location")</script>
+          <?php
+        } else {
+          exit;
         }
       }
     }
