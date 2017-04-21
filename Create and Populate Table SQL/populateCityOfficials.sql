@@ -37,3 +37,31 @@ VALUES ("rohithcity", "Mayor", NULL, "Los Angeles", "CA");
 
 INSERT INTO CITY_OFFICIAL
 VALUES ("notauser", "Mayor", "0", "Atlanta", "GA");
+
+--just so brian can fuck aroudn
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks1", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks2", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks3", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks4", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks5", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks6", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks7", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks8", "Chief Bootlicker", NULL, "Atlanta", "GA");
+
+INSERT INTO CITY_OFFICIAL
+VALUES ("phpsucks9", "Chief Bootlicker", NULL, "Atlanta", "GA");

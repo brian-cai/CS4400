@@ -17,11 +17,11 @@ if ($mysqli->connect_errno) {
 <body>
   <div class="form">
 <!-- SQL QUERIES for location dropdown-->
-<?php 
+<?php
 $sql = "SELECT location_name FROM POI ORDER BY location_name";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -51,12 +51,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $loc = $row['location_name'];
-              }          
+              }
             ?>
-          
+
               <option value= "$loc" > <?php echo $loc ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -66,11 +66,11 @@ $count=$result->num_rows;
         </select>
       <br>
 <!-- SQL QUERIES for state dropdown-->
-<?php 
+<?php
 $sql = "SELECT DISTINCT city FROM LOCATION ORDER BY city";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -96,12 +96,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $city = $row['city'];
-              }          
+              }
             ?>
-          
+
               <option value= "$city" > <?php echo $city ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -110,11 +110,11 @@ $count=$result->num_rows;
         </select>
       <br>
 <!-- SQL QUERIES for state dropdown-->
-<?php 
+<?php
 $sql = "SELECT DISTINCT state FROM LOCATION ORDER BY state";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -139,12 +139,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $state = $row['state'];
-              }          
+              }
             ?>
-          
+
               <option value= "$state" > <?php echo $state ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -226,12 +226,12 @@ $count=$result->num_rows;
           //put queries from database here
          if($row=$result->fetch_assoc()) {
            $loc = $row['location_name'];
-           $city = $row['city']; 
+           $city = $row['city'];
            $state =  $row['state'];
            $zip =  $row['zip'];
            $flagged =  $row['flagged'];
            $date_flagged =  $row['date_flagged'];
-           
+
 }
 
       ?>
@@ -242,7 +242,7 @@ $count=$result->num_rows;
             <td><?php echo $city ?></td>
             <td><?php echo $state ?></td>
             <td><?php echo $zip ?></td>
-            <td><?php echo $flagged ?></td>
+            <td><?php echo (($flagged)? 'yes' : 'no'); ?></td>
             <td><?php echo $date_flagged ?></td>
 
 
