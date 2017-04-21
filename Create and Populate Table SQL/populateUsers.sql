@@ -18,6 +18,15 @@ INSERT INTO USER values("pending@atlanta.org", "pendingman", "pending", 'city_of
 INSERT INTO USER values("cityoff@atlanta.org", "atlofficial", "falcons", 'city_official');
 INSERT INTO USER values("test2@atlanta.org", "test2", "test2", 'city_official');
 
+INSERT INTO USER values("phpsucks1@atlanta.org", "phpsucks1", "test2", 'city_official');
+INSERT INTO USER values("phpsucks2@atlanta.org", "phpsucks2", "test2", 'city_official');
+INSERT INTO USER values("phpsucks3@atlanta.org", "phpsucks3", "test2", 'city_official');
+INSERT INTO USER values("phpsucks4@atlanta.org", "phpsucks4", "test2", 'city_official');
+INSERT INTO USER values("phpsucks5@atlanta.org", "phpsucks5", "test2", 'city_official');
+INSERT INTO USER values("phpsucks6@atlanta.org", "phpsucks6", "test2", 'city_official');
+INSERT INTO USER values("phpsucks7@atlanta.org", "phpsucks7", "test2", 'city_official');
+INSERT INTO USER values("phpsucks8@atlanta.org", "phpsucks8", "test2", 'city_official');
+INSERT INTO USER values("phpsucks9@atlanta.org", "phpsucks9", "test2", 'city_official');
 
 --city scientists
 INSERT INTO USER values("scientist@test.com", "city_scientist", "city_scientist", 'city_scientist');
