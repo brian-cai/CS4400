@@ -189,21 +189,40 @@ $count=$result->num_rows;
 <?php
 //$sql = "SELECT *
 //FROM POI;";
+
+
+/*
+$sql = "select * from POI where";
+
 $loc = $_GET["location"]; 
+if (empty($loc)) {
+  $sql .= "($loc IS NULL OR location_name = $loc) and";
+} else {
+  $sql .= "('$loc' IS NULL OR location_name = '$loc') and";
+}
+
 $city = $_GET["City"]; 
+if (empty($city)) {
+  $sql .= "($city IS NULL OR city = $city) and";
+} else {
+  $sql .= "('$city' IS NULL OR city = '$city') and";
+}
+
 $state = $_GET["State"]; 
+if (empty($state)) {
+  $sql .= "($state IS NULL OR state = $state) and";
+} else {
+  $sql .= "('$state' IS NULL OR state = '$state') and";
+}
+
 $zcode = $_GET["zcode"];
-if (empty($zcode)){
-  $zcode = null;
+if (empty($zcode)) {
+  $sql .= "($zcode IS NULL OR zip = $zcode) and";
+} else {
+  $sql .= "('$zcode' IS NULL OR zip = '$zcode') and";
 }
-$lowend = $_GET["lowend"]; 
-if (empty($lowend)) {
-  $lowend = null;
-}
-$highend = $_GET["highend"]; 
-if (empty($highend)) {
-  $highend = null;
-}
+
+
 if (isset($_GET["flagged"])) {
    // do something
 $flagged = 1;
@@ -211,14 +230,37 @@ $flagged = 1;
 $flagged = 0;
 }
 
+$sql .= "('$flagged' IS NULL OR flagged = '$flagged')";
+$sql .= ";";
+*/
 
+/*
+$lowend = $_GET["lowend"]; 
+if (empty($lowend)) {
+  $sql .= "($lowend IS NULL OR location_name = $lowend) and";
+} else {
+  $sql .= "('$lowend' IS NULL OR location_name = '$lowend') and";
+}
+
+$highend = $_GET["highend"]; 
+if (empty($lowend)) {
+  $sql .= "($ IS NULL OR location_name = $lowend) and";
+} else {
+  $sql .= "('$lowend' IS NULL OR location_name = '$lowend') and";
+}*/
+
+
+/*
 $sql = "select * from POI where
-    ('$loc' IS NULL OR location_name = '$loc') and
+    ($loc IS NULL OR location_name = $loc) and
     ('$city' IS NULL OR city = '$city') and
     ('$state' IS NULL OR state = '$state') and
     ('$zcode' IS NULL OR zip = '$zcode') and
     ('$flagged' IS NULL OR flagged = '$flagged') and
     ('$lowend' IS NULL OR '$highend' IS NULL OR (date_flagged >= '$lowend' AND date_flagged <= '$highend'));";
+*/
+
+    $sql = "select * from POI " ;
 ?>
 <br>
 location: <?php echo $loc; ?> <br>
