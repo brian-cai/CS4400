@@ -141,9 +141,6 @@ echo "$sql";
 
 if (!$result = $mysqli->query($sql)) {
     // Oh no! The query failed.
-    ?>
-    <script>alert("You tried to hurt our database! Sad!");</script>
-    <?php
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
