@@ -61,7 +61,7 @@ $count=$result->num_rows;
         while ($i < $num) {
           //put queries from database here
          if($row=$result->fetch_assoc()) {
-           $testing = $row;
+           //$testing = $row;
            $loc = $row['location_name'];
            $type = $row['type'];
            $value = $row['data_value'];
@@ -74,7 +74,7 @@ $count=$result->num_rows;
 
       <tr>
             <!--checkbox-->
-            <td><input type="checkbox" name="samebox[]" value="<?php echo $row?>"   </td>
+            <td><input type="checkbox" name="samebox[]" value="<?php echo $i?>">   </td>
             <!--queries-->
             <td><?php echo $loc ?></td>
             <td><?php echo $type ?></td>
@@ -118,13 +118,61 @@ $count=$result->num_rows;
     </form>
   </div>
 checkboxes:
+
 <?php
-foreach($_POST['samebox'] as $checkbox) {
-   // do something
-  echo $checkbox;
-}
+foreach ($_POST['samebox'] as $value) {
+
+  $sql = "SELECT location_name, date_time, type, data_value
+  FROM DATA_POINT
+  WHERE approved IS NULL;";
+
+  $count=$result->num_rows;
+  if (!$result = $mysqli->query($sql)) {
+      // Oh no! The query failed.
+      echo "Sorry, the website is experiencing problems.";
+
+      // Again, do not do this on a public site, but we'll show you how
+      // to get the error information
+      echo "Error: Our query failed to execute and here is why: <br>";
+      echo "Query: " . $sql . "<br>";
+      echo "Errno: " . $mysqli->errno . "<br>";
+      echo "Error: " . $mysqli->error . "<br>";
+      exit;
+  }
+
+        $i = 0;
+        $num = $count;
+        while ($i < $num) {
+          //put queries from database here
+         if($row=$result->fetch_assoc()) {
+
+             if ($i == $value) {
+             echo $row['location_name'];
+             echo "<br>";
+             echo $row['type'];
+             echo "<br>";
+             echo $row['data_value'];
+             echo "<br>";
+             echo $row['date_time'];
+             echo "<br>";
+             echo "<br>";           
+             }
+           }
+           $i++;
+       }
+    
+   }
 ?>
+
 <br>
+<!--old loop-->
+<?php
+// foreach ($_POST['samebox'] as $value) {
+//   echo $value;
+//   echo "<br>";
+// }
+?>
+
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

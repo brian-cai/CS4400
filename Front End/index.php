@@ -215,7 +215,7 @@ if ($count == 1) {
     </script>'; 
   }
 }
-echo "error: no login! <br>";
+
 echo "Login Results: $count <br>";
 $result = $mysqli->query($sql);
 while($row=$result->fetch_assoc()) {
