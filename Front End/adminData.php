@@ -16,8 +16,7 @@ if ($mysqli->connect_errno) {
 
 <!-- SQL QUERIES-->
 <?php
-$sql = "SELECT location_name, date_time, type, data_value
-FROM DATA_POINT
+$sql = "SELECT location_name, date_time, type, data_value FROM DATA_POINT
 WHERE approved IS NULL;";
 
 if (!$result = $mysqli->query($sql)) {
@@ -45,15 +44,113 @@ $count=$result->num_rows;
 
       <h1>Pending Data Points </h1>
 
-      <table border="1" cellspacing="2" cellpadding="2">
+      <table id = "report_table" border="1" cellspacing="2" cellpadding="2">
       <tr>
 
-            <th>Select </th>
-            <th>POI Location </th>
-            <th>Data Type </th>
-            <th>Data Value </th>
-            <th>Time and Date of Reading </th>
+            <th> Select </th>
+            <th onclick="sortTable(1)">POI Location <b>&#x21D5;</b> </th>
+            <th onclick="sortTable(2)">Data Type <b>&#x21D5;</b> </th>
+            <th onclick="sortTable(3)">Data Value <b>&#x21D5;</b> </th>
+            <th onclick="sortTable(4)">Time and Date of Reading <b>&#x21D5;</b> </th>
       </tr>
+
+      <script>
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, temp1, temp2, switchcount = 0;
+        table = document.getElementById("report_table");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc";
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+          //start by saying: no switching is done:
+          switching = false;
+          rows = table.getElementsByTagName("TR");
+          /*Loop through all table rows (except the
+          first, which contains table headers):*/
+          for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /*check if the two rows should switch place,
+            based on the direction, asc or desc:*/
+            if (n == 1 || n == 2 ) {
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              }
+            } else if (n == 3) {
+
+              if (isNaN(parseFloat(x.innerHTML))) {num1 = -1}
+               else {num1 = parseFloat(x.innerHTML)}
+              if (isNaN(parseFloat(y.innerHTML))) {num2 = -1}
+               else {num2 = parseFloat(y.innerHTML)}
+
+              if (dir == "asc") {
+                if (num1 > num2) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (num1 < num2) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              }
+            } else {
+              temp1 = x.innerHTML;
+              temp2 = y.innerHTML;
+              var date1 = new Date(temp1);
+              var date2 = new Date(temp2);
+
+              if (dir == "asc") {
+                if (date1 > date2) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (date1 < date2) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch= true;
+                  break;
+                }
+              }
+            }
+          }
+          if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            //Each time a switch is done, increase this count by 1:
+            switchcount ++;
+          } else {
+            /*If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again.*/
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+      </script>
 
       <?php
         $i = 0;
@@ -155,12 +252,12 @@ foreach ($_POST['samebox'] as $value) {
              echo "<br>";
              echo $row['date_time'];
              echo "<br>";
-             echo "<br>";           
+             echo "<br>";
              }
            }
            $i++;
        }
-    
+
    }
 ?>
 
