@@ -65,3 +65,9 @@ VALUES ("UChicago", "2017-04-02 14:42:00", "air quality", "16", NULL);
 
 INSERT INTO DATA_POINT
 VALUES ("UChicago", "2016-05-02 09:47:00", "air quality", "36", NULL);
+
+INSERT INTO DATA_POINT
+VALUES ("UAB", "2016-08-08 09:47:00", "air quality", "36", NULL);
+
+INSERT INTO DATA_POINT
+VALUES ("UAB", "2016-12-12 10:45:54", "mold", "7", NULL);
