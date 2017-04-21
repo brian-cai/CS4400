@@ -160,15 +160,16 @@ LOGIN QUERY DATA <br>
 
 <br>
 REGISTER QUERY DATA <br>
-username: <?php echo $_POST["usernameR"]; ?> <br>
-password: <?php echo $_POST["password1"]; ?> <br>
-password confirmation: <?php echo $_POST["password2"]; ?> <br>
-email: <?php echo $_POST["email"]; ?> <br>
-user type: <?php echo $_POST["UserType"]; ?> <br>
-city: <?php echo $_POST["City"]; ?> <br>
-state: <?php echo $_POST["State"]; ?> <br>
-title: <?php echo $_POST["Title"]; ?> <br>
+    username: <?php echo $_POST["usernameR"]; ?> <br>
+    password: <?php echo $_POST["password1"]; ?> <br>
+    password confirmation: <?php echo $_POST["password2"]; ?> <br>
+    email: <?php echo $_POST["email"]; ?> <br>
+    user type: <?php echo $_POST["UserType"]; ?> <br>
+    city: <?php echo $_POST["City"]; ?> <br>
+    state: <?php echo $_POST["State"]; ?> <br>
+    title: <?php echo $_POST["Title"]; ?> <br>
 <br>
+
 
 <!--LOGIC FOR LOGGING IN-->
 <?php
@@ -226,9 +227,9 @@ if ($count == 1) {
         echo '<script type="text/javascript" language="javascript">
     window.open("cityOffFunction.php","_self");
     </script>';
-    }
+    } else { ?><script> alert("Login Failure: City Official has not been approved by Admin"); </script> <?php }
   }
-}
+} else {?> <script> alert("Login Failure: improper credentials"); </script> <?php }
 
 
 echo "Login Results: $count <br>";
