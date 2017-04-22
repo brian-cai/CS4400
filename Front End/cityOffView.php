@@ -164,10 +164,9 @@ $count=$result->num_rows;
       <input type="date" name="highend">
 
       <br>
-      <button>
-        <a href="#">
+
+      <button href="#" input type = "submit">
           Apply Filter
-        </a>
       </button>
 
       <button>
@@ -180,9 +179,6 @@ $count=$result->num_rows;
       <br>
 
       <br>
-      <button href="#" input type = "submit">
-          Temporary Query Button
-      </button>
 
 
 <!--TABLE STARTS HERE -->
@@ -237,7 +233,6 @@ if (isset($_GET["flagged"])) {
 }
 
 
-echo $sql;
 /*
 if (empty($lowend)) {
   $sql .= "($ IS NULL OR location_name = $lowend) and";
@@ -363,6 +358,7 @@ echo $flagged
 <br>
 Query happens below
 <br>
+<?php echo $sql;?>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

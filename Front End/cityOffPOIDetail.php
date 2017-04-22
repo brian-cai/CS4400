@@ -49,7 +49,7 @@ $count=$result->num_rows;
               }          
             ?>
           
-              <option value= "$city" > <?php echo $type ?></option>
+              <option value="<?php echo $type ?>"> <?php echo $type ?></option>
           
           
 
@@ -61,26 +61,22 @@ $count=$result->num_rows;
       <br>
       
       Data Value
-      <input type="number" width="10px" name="lowend">
+      <input type="number" width="10px" name="lowenddata">
       to
-      <input type="number" width="10px" name="highend">
+      <input type="number" width="10px" name="highenddata">
       
       <br></br>
       Time and Date
-      <input type="datetime-local" name="lowend">
+      <input type="datetime-local" name="lowendtime">
       to
-      <input type="datetime-local" name="highend">
+      <input type="datetime-local" name="highendtime">
 
       <br></br>
 
       
-      <button input type="submit">        
-
-        <submitted href="#">
+      <button href="#" input type="submit">        
           Apply Filter 
-        </submitted>
 
-        </a>        
       </button>
 
       <button>
@@ -91,9 +87,59 @@ $count=$result->num_rows;
 
 <!--TABLE STARTS HERE -->
 <?php
-$sql = "SELECT *
-FROM DATA_POINT;";
+$sql = "select type, data_value, date_time from DATA_POINT where";
+    //(location_input = location_name) and
+    //(type_input IS NULL OR type = type_input) and
+    //(lowVal_input IS NULL OR highVal_input IS NULL OR (data_value >= lowVal_input AND data_value <= highVal_input)) and
+    //(lowDate_input IS NULL OR highDate_input IS NULL OR (date_time >= lowDate_input AND date_time <= highDate_input));
 
+
+$poitype = $_GET["poitype"];
+$lowdata = $_GET["lowenddata"]; 
+$highdata = $_GET["highenddata"]; 
+$lowtime = $_GET["lowendtime"]; 
+$hightime = $_GET["highendtime"]; 
+//$lowtime = date("Y-m-d\TH:i:s", strtotime($lowtime));
+$lowtime = date("Y-m-d H:i:s" , $lowtime);
+//$hightime = date("Y-m-d\TH:i:s", strtotime($hightime);
+echo "<br>";
+echo $lowtime;
+echo "<br";
+echo $hightime;
+echo "<br>";
+echo "<br>";echo "<br>";
+if ($poitype === "null") {
+  $sql .= "(NULL IS NULL OR type = NULL) and ";
+} else {
+  $sql .= "('$poitype' IS NULL OR type = '$poitype') and ";
+}
+
+if (empty($lowdata) and empty($highdata)) {
+  $sql .= "(NULL IS NULL) and ";
+} else if (empty($highdata)) {
+  $sql .= "(data_value >= '$lowdata') and ";
+} else if (empty($lowend)) {
+  $sql .= "(data_value <= '$highdata') and ";
+} else {
+  $sql .= "(data_value >= '$lowdata' AND data_value <= '$highdata') and ";
+}
+
+
+
+if (empty($lowtime) and empty($hightime)) {
+  $sql .= "(NULL IS NULL);";
+} else if (empty($hightime)) {
+  $sql .= "(date_time >= '$lowtime');";
+} else if (empty($lowtime)) {
+  $sql .= "(date_time <= '$hightime');";
+} else {
+  $sql .= "(date_time >= '$lowtime' AND date_time <= '$hightime');";
+}
+
+
+
+echo $sql;
+echo "<br><br>";
 if (!$result = $mysqli->query($sql)) {
     // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
@@ -152,7 +198,7 @@ $count=$result->num_rows;
 
       <br><br>
       <button>
-        <a href="cityOffFunction.php">
+        <a href="cityOffView.php">
           Back 
         </a>        
       </button>
@@ -168,7 +214,8 @@ $count=$result->num_rows;
 
   </div>
 POI Name: <?php echo $_GET["poitype"]; ?> <br>
-Range: <?php echo $_GET["lowend"]; ?> to <?php echo $_GET["highend"]; ?> <br> 
+Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br> 
+Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br> 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
