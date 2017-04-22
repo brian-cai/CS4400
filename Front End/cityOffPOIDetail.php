@@ -29,13 +29,21 @@ if (!$result = $mysqli->query($sql)) {
     exit;
 }
 $count=$result->num_rows;
+$locationbutton = $_GET["locationbutton"];
 
 ?>
 
 <body>
+Location: <?php echo $locationbutton; ?> <br>
+
   <div class="form">
+
     <form action = "cityOffPOIDetail.php" method = "get">
+
       <h1> POI detail</h1>
+      <!--hidden location-->
+      <input id="checkBox" type="checkbox" style="display:none" value="<?php echo $locationbutton?>" name="locationbutton" checked>
+      <!--visible-->
       Type
       <select name="poitype" >
           <option value= "null" >---</option>
@@ -49,9 +57,9 @@ $count=$result->num_rows;
               }          
             ?>
           
-              <option value="<?php echo $type ?>"> <?php echo $type ?></option>
-          
-          
+                    
+              <option value= "<?php echo $type ?>" > <?php echo $type ?></option>
+
 
           <?php
           $i++;
@@ -59,12 +67,12 @@ $count=$result->num_rows;
           ?>
       </select>
       <br>
-      
+
       Data Value
       <input type="number" width="10px" name="lowenddata">
       to
       <input type="number" width="10px" name="highenddata">
-      
+
       <br></br>
       Time and Date
       <input type="datetime-local" name="lowendtime">
@@ -106,6 +114,12 @@ if (!empty($lowtime)) {
 if (!empty($hightime)) {
   $hightime = date("Y-m-d H:i:s" , strtotime($hightime));
 
+}
+
+if ($locationbutton === "null") {
+  $sql .= "(NULL IS NULL OR location_name = NULL) and ";
+} else {  
+  $sql .= "('$locationbutton' IS NULL OR location_name = '$locationbutton') and ";
 }
 
 if ($poitype === "null") {
@@ -212,7 +226,7 @@ $count=$result->num_rows;
     </form>
 
   </div>
-POI Name: <?php echo $_GET["poitype"]; ?> <br>
+Type: <?php echo $_GET["poitype"]; ?> <br>
 Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br> 
 Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br> 
 <?php
@@ -223,7 +237,11 @@ echo $hightime;
 echo "<br>";
 echo "<br>";echo "<br>";
 echo $sql;
+echo "<br>";echo "<br>";
 ?>
+
+Location: <?php echo $_GET["locationbutton"]; ?> <br>
+
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="js/index.js"></script>

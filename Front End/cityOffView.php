@@ -328,12 +328,18 @@ $count=$result->num_rows;
       <tr>
             <!--queries-->
             <td>
-              <button>
-                <a href="#">
-                  <?php echo $loc ?>
-                </a>
-              </button>
+            <button>
+            <a href="cityOffPOIDetail.php?locationbutton=<?php echo $loc ?>">
+                <?php echo $loc ?>
+            </a>
+             
+              <!--
+               <form> 
+                <input type="submit" >
+                -->
+             </button> 
             </td>
+
             <td><?php echo $city ?></td>
             <td><?php echo $state ?></td>
             <td><?php echo $zip ?></td>
