@@ -158,7 +158,7 @@ $count=$result->num_rows;
       <br>
  <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>
       <br></br>
-      Time and Date Flagged 
+      Time and Date Flagged
       <input type="date" name="lowend">
       to
       <input type="date" name="highend">
@@ -312,7 +312,13 @@ $count=$result->num_rows;
 
       <tr>
             <!--queries-->
-            <td><?php echo $loc ?></td>
+            <td>
+              <button>
+                <a href="#">
+                  <?php echo $loc ?>
+                </a>
+              </button>
+            </td>
             <td><?php echo $city ?></td>
             <td><?php echo $state ?></td>
             <td><?php echo $zip ?></td>
@@ -321,6 +327,7 @@ $count=$result->num_rows;
 
 
       </tr>
+
 
       <?php
       $i++;
