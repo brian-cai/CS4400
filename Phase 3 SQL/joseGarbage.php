@@ -76,3 +76,24 @@ select * from POI where
 
     insert into USER values('test@test.com', 'test', 'test', 'city_official');
 insert into CITY_OFFICIAL values('test', 'tester', 'null', 'Decatur', 'Georgia')
+
+
+      if (!$result = $mysqli->query($register1)) {
+        echo "Sorry, the website is experiencing problems.";
+        echo "Error: Our query failed to execute and here is why: <br>";
+        echo "Query: " . $register1 . "<br>";
+        echo "Errno: " . $mysqli->errno . "<br>";
+        $eCode = $mysqli->errno;
+        echo "Error: " . $mysqli->error . "<br>";
+        if ($eCode == 1062) {
+          ?>
+          <script>alert("Error:That username is already taken")</script>
+          <?php
+        } else if ($eCode == 1452) {
+          ?>
+          <script>alert("Error:Invalid Location")</script>
+          <?php
+        } else {
+          exit;
+        }
+      } else

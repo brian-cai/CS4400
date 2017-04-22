@@ -232,7 +232,7 @@ if ($rPressed == 1) {
       echo $_POST["rState"];
 
       $register1 = "insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');";
-      ?><script></script> <?php
+
       $register2 = "insert into CITY_OFFICIAL values('$usernameR', '$rTitle', NULL, '$rCity', '$rState');";
       if (!$result = $mysqli->query($register1)) {
         echo "Sorry, the website is experiencing problems.";
@@ -267,6 +267,20 @@ if ($rPressed == 1) {
           ?>
           <script>alert("Error:Invalid Location")</script>
           <?php
+          $dropper = "DELETE FROM USER WHERE username = '$usernameR';";
+          if (!$result = $mysqli->query($dropper)) {
+            // Oh no! The query failed.
+            echo "Sorry, the website is experiencing problems.";
+
+            // Again, do not do this on a public site, but we'll show you how
+            // to get the error information
+            echo "Error: Our query failed to execute and here is why: <br>";
+            echo "Query: " . $dropper . "<br>";
+            echo "Errno: " . $mysqli->errno . "<br>";
+            echo "Error: " . $mysqli->error . "<br>";
+            exit;
+        }
+
         } else {
           exit;
         }
