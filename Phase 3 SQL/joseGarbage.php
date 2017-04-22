@@ -97,3 +97,16 @@ insert into CITY_OFFICIAL values('test', 'tester', 'null', 'Decatur', 'Georgia')
           exit;
         }
       } else
+
+
+
+
+
+
+
+
+
+                <a href="cityOffPOIDetail.php?passed_location = <?php echo $loc ?>">
+                  <?php echo $loc ?>
+                </a>
+              </button>

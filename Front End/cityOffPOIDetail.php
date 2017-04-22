@@ -72,6 +72,7 @@ Location: <?php echo $locationbutton; ?> <br>
       <input type="number" width="10px" name="lowenddata">
       to
       <input type="number" width="10px" name="highenddata">
+      <? $locationbutton = $_GET["locationbutton"]; ?>
 
       <br></br>
       Time and Date
