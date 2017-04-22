@@ -221,10 +221,25 @@ if (empty($zcode)) {
 
 $lowend = $_GET["lowend"];
 $highend = $_GET["highend"];
+
+if (!empty($lowend)) {
+  $lowend = date("Y-m-d" , strtotime($lowend));  
+}
+if (!empty($highend)) {
+  $highend = date("Y-m-d" , strtotime($highend));
+
+}
+
+
+
 if (isset($_GET["flagged"])) {
   $sql .= "(flagged = TRUE) and ";
-  if (empty($lowend) OR empty($highend)) {
+  if (empty($lowend) and empty($highend)) {
     $sql .= "NULL IS NULL;";
+  } else if (empty($highend)) {
+    $sql .= "(date_flagged >= '$lowend'); ";
+  } else if (empty($lowend)) {
+    $sql .= "(date_flagged <= '$highend');";
   } else {
     $sql .= "(date_flagged >= '$lowend' AND date_flagged <= '$highend');";
   }
@@ -360,12 +375,15 @@ low: <?php echo $_GET["lowend"]; ?> <br>
 high: <?php echo $_GET["highend"]; ?> <br>
 
 isflagged? :  <?php
-echo $flagged
+echo $flagged;
+echo "<br>";
+echo $lowend;
+echo "<br>";
+echo $highend;
+echo "<br>";
+echo "<br>";echo "<br>";
+echo $sql;
 ?>
-<br>
-Query happens below
-<br>
-<?php echo $sql;?>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
