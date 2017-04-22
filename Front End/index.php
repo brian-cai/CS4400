@@ -336,7 +336,7 @@ if ($lPressed == 1) {
       </script>';
       } else { ?><script> alert("Login Failure: City Official has not been approved by Admin"); </script> <?php }
     }
-  } else {?> <script> alert("Login Failure: improper credentials"); </script> <?php }
+  } else if (($lPressed == 1)) {?> <script> alert("Login Failure: improper credentials"); </script> <?php }
 
 
   echo "Login Results: $count <br>";

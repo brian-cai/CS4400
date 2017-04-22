@@ -230,7 +230,7 @@ if (isset($_GET["flagged"])) {
   if (empty($lowend) OR empty($highend)) {
     $sql .= "NULL IS NULL;";
   } else {
-    $sql .= "(date_flagged >= $lowend AND date_flagged <= $highend);";
+    $sql .= "(date_flagged >= '$lowend' AND date_flagged <= '$highend');";
   }
 } else {
   $sql .= "(flagged = FALSE);";
