@@ -314,7 +314,7 @@ $count=$result->num_rows;
             <!--queries-->
             <td>
               <button>
-                <a href="#">
+                <a href="cityOffPOIDetail.php?passed_location = <?php echo $loc ?>">
                   <?php echo $loc ?>
                 </a>
               </button>

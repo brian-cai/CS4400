@@ -10,14 +10,14 @@ if ($mysqli->connect_errno) {
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>City Official - POI Details</title>  
+  <title>City Official - POI Details</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<?php 
+<?php
 $sql = "SELECT type from DATA_TYPE ORDER BY type;";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -46,12 +46,12 @@ $count=$result->num_rows;
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $type = $row['type'];
-              }          
+              }
             ?>
-          
+
               <option value="<?php echo $type ?>"> <?php echo $type ?></option>
-          
-          
+
+
 
           <?php
           $i++;
@@ -59,12 +59,12 @@ $count=$result->num_rows;
           ?>
       </select>
       <br>
-      
+
       Data Value
       <input type="number" width="10px" name="lowenddata">
       to
       <input type="number" width="10px" name="highenddata">
-      
+
       <br></br>
       Time and Date
       <input type="datetime-local" name="lowendtime">
@@ -73,16 +73,16 @@ $count=$result->num_rows;
 
       <br></br>
 
-      
-      <button href="#" input type="submit">        
-          Apply Filter 
+
+      <button href="#" input type="submit">
+          Apply Filter
 
       </button>
 
       <button>
         <a href="cityOffPOIDetail.php">
-          Reset Filter 
-        </a>        
+          Reset Filter
+        </a>
       </button>
 
 <!--TABLE STARTS HERE -->
@@ -93,12 +93,14 @@ $sql = "select type, data_value, date_time from DATA_POINT where";
     //(lowVal_input IS NULL OR highVal_input IS NULL OR (data_value >= lowVal_input AND data_value <= highVal_input)) and
     //(lowDate_input IS NULL OR highDate_input IS NULL OR (date_time >= lowDate_input AND date_time <= highDate_input));
 
+// THis is the location passed from the previous page
+$passed_location = $_GET["passed_location"];
 
 $poitype = $_GET["poitype"];
-$lowdata = $_GET["lowenddata"]; 
-$highdata = $_GET["highenddata"]; 
-$lowtime = $_GET["lowendtime"]; 
-$hightime = $_GET["highendtime"]; 
+$lowdata = $_GET["lowenddata"];
+$highdata = $_GET["highenddata"];
+$lowtime = $_GET["lowendtime"];
+$hightime = $_GET["highendtime"];
 //$lowtime = date("Y-m-d\TH:i:s", strtotime($lowtime));
 $lowtime = date("Y-m-d H:i:s" , $lowtime);
 //$hightime = date("Y-m-d\TH:i:s", strtotime($hightime);
@@ -174,9 +176,9 @@ $count=$result->num_rows;
          if($row=$result->fetch_assoc()) {
            $type = $row['type'];
            $value =  $row['data_value'];
-           $date = $row['date_time']; 
+           $date = $row['date_time'];
 
-           
+
 }
 
       ?>
@@ -199,23 +201,24 @@ $count=$result->num_rows;
       <br><br>
       <button>
         <a href="cityOffView.php">
-          Back 
-        </a>        
+          Back
+        </a>
       </button>
-  
+
 
       <button>
         <a href="#">
       Flag
-        </a>        
+        </a>
       </button>
 
     </form>
 
   </div>
+passed through name = <?php echo $_GET["passed_location"]; ?> <br>
 POI Name: <?php echo $_GET["poitype"]; ?> <br>
-Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br> 
-Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br> 
+Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br>
+Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br>
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
