@@ -158,7 +158,7 @@ $count=$result->num_rows;
       <br>
  <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>
       <br></br>
-      Time and Date
+      Time and Date Flagged 
       <input type="date" name="lowend">
       to
       <input type="date" name="highend">
@@ -191,25 +191,26 @@ $count=$result->num_rows;
 //FROM POI;";
 
 
-/*
+
 $sql = "select * from POI where";
 
-$loc = $_GET["location"]; 
-if (empty($loc)) {
-  $sql .= "($loc IS NULL OR location_name = $loc) and";
+$loc = $_GET["location"];
+if ($loc === "null") {
+  $sql .= "(NULL IS NULL OR location_name = NULL) and";
 } else {
+  echo "    location is not EMPTY      ";
   $sql .= "('$loc' IS NULL OR location_name = '$loc') and";
 }
 
-$city = $_GET["City"]; 
-if (empty($city)) {
+$city = $_GET["City"];
+if ($city === "null") {
   $sql .= "($city IS NULL OR city = $city) and";
 } else {
   $sql .= "('$city' IS NULL OR city = '$city') and";
 }
 
-$state = $_GET["State"]; 
-if (empty($state)) {
+$state = $_GET["State"];
+if ($state === "null") {
   $sql .= "($state IS NULL OR state = $state) and";
 } else {
   $sql .= "('$state' IS NULL OR state = '$state') and";
@@ -217,38 +218,33 @@ if (empty($state)) {
 
 $zcode = $_GET["zcode"];
 if (empty($zcode)) {
-  $sql .= "($zcode IS NULL OR zip = $zcode) and";
+  $sql .= "(NULL IS NULL OR zip = NULL) and";
 } else {
   $sql .= "('$zcode' IS NULL OR zip = '$zcode') and";
 }
 
-
+$lowend = $_GET["lowend"];
+$highend = $_GET["highend"];
 if (isset($_GET["flagged"])) {
-   // do something
-$flagged = 1;
+  $sql .= "(flagged = TRUE) and ";
+  if (empty($lowend) OR empty($highend)) {
+    $sql .= "NULL IS NULL;";
+  } else {
+    $sql .= "(date_flagged >= $lowend AND date_flagged <= $highend);";
+  }
 } else {
-$flagged = 0;
+  $sql .= "(flagged = FALSE);";
 }
 
-$sql .= "('$flagged' IS NULL OR flagged = '$flagged')";
-$sql .= ";";
-*/
 
+echo $sql;
 /*
-$lowend = $_GET["lowend"]; 
-if (empty($lowend)) {
-  $sql .= "($lowend IS NULL OR location_name = $lowend) and";
-} else {
-  $sql .= "('$lowend' IS NULL OR location_name = '$lowend') and";
-}
-
-$highend = $_GET["highend"]; 
 if (empty($lowend)) {
   $sql .= "($ IS NULL OR location_name = $lowend) and";
 } else {
   $sql .= "('$lowend' IS NULL OR location_name = '$lowend') and";
-}*/
-
+}
+*/
 
 /*
 $sql = "select * from POI where
@@ -260,7 +256,7 @@ $sql = "select * from POI where
     ('$lowend' IS NULL OR '$highend' IS NULL OR (date_flagged >= '$lowend' AND date_flagged <= '$highend'));";
 */
 
-    $sql = "select * from POI " ;
+    //$sql = "select * from POI " ;
 ?>
 <br>
 location: <?php echo $loc; ?> <br>
