@@ -100,14 +100,14 @@ $highdata = $_GET["highenddata"];
 $lowtime = $_GET["lowendtime"]; 
 $hightime = $_GET["highendtime"]; 
 //$lowtime = date("Y-m-d\TH:i:s", strtotime($lowtime));
-$lowtime = date("Y-m-d H:i:s" , $lowtime);
-//$hightime = date("Y-m-d\TH:i:s", strtotime($hightime);
-echo "<br>";
-echo $lowtime;
-echo "<br";
-echo $hightime;
-echo "<br>";
-echo "<br>";echo "<br>";
+if (!empty($lowtime)) {
+  $lowtime = date("Y-m-d H:i:s" , strtotime($lowtime));  
+}
+if (!empty($hightime)) {
+  $hightime = date("Y-m-d H:i:s" , strtotime($hightime));
+
+}
+
 if ($poitype === "null") {
   $sql .= "(NULL IS NULL OR type = NULL) and ";
 } else {
@@ -138,7 +138,6 @@ if (empty($lowtime) and empty($hightime)) {
 
 
 
-echo $sql;
 echo "<br><br>";
 if (!$result = $mysqli->query($sql)) {
     // Oh no! The query failed.
@@ -216,7 +215,15 @@ $count=$result->num_rows;
 POI Name: <?php echo $_GET["poitype"]; ?> <br>
 Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br> 
 Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br> 
-
+<?php
+echo "<br>";
+echo $lowtime;
+echo "<br>";
+echo $hightime;
+echo "<br>";
+echo "<br>";echo "<br>";
+echo $sql;
+?>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="js/index.js"></script>
