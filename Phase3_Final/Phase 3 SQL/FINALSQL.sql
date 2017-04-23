@@ -207,23 +207,10 @@ INSERT INTO DATA_POINT VALUES( '$locc', '$time', '$datatype', '$value', NULL );
 select location_name from POI;
 -- populates the data_type dropdown
 select type from DATA_TYPE;
-<<<<<<< HEAD
 --populate city dropdown
 SELECT DISTINCT city FROM LOCATION ORDER BY city;
 --populate state dropdown
 SELECT DISTINCT state FROM LOCATION ORDER BY state;
-=======
-
-insert into DATA_POINT values(name_input, datetime_input, type_inout, value_input, 0);
-
-
-
-
--- populate drop downs
-
-    SELECT DISTINCT state FROM LOCATION ORDER BY state;
-    SELECT DISTINCT city FROM LOCATION ORDER BY city;
->>>>>>> 7128ea7c7dd982ac8f257ba5eb517417e259c2f3
 
 --
 --
