@@ -248,35 +248,35 @@ SELECT location_name FROM POI ORDER BY location_name
 -- ADD POI
 --
 --
+
 --if a city official clicks "add a new location"
 --city and state inputs are from the database and in drop-down format
-INSERT INTO POI
-VALUES (name_input, zip_input, 0, NULL, city_input, state_input);
+INSERT INTO POI 
+VALUES( '$poiname', '$zip', '0', NULL, '$city', '$state' );
 --if location_name already exists: ERROR - "name_input already exists"
 
+--populate city dropdown
+SELECT DISTINCT city FROM LOCATION ORDER BY city;
+--populate state dropdown
+SELECT DISTINCT state FROM LOCATION ORDER BY state;
 
-INSERT INTO POI
-VALUES ("Bev-hills", 90210, 0, NULL, "Los Angeles", "CA");
 --
 --
 -- ADD data point
 --
 --
+-- 
+
+INSERT INTO DATA_POINT VALUES( '$locc', '$time', '$datatype', '$value', NULL );
+
 -- populates POI location name dropdown
 select location_name from POI;
-
 -- populates the data_type dropdown
 select type from DATA_TYPE;
-
-insert into DATA_POINT values(name_input, datetime_input, type_inout, value_input, 0);
-
-
-
-
--- populate drop downs
-
-select city from LOCATION
-select state from LOCATION
+--populate city dropdown
+SELECT DISTINCT city FROM LOCATION ORDER BY city;
+--populate state dropdown
+SELECT DISTINCT state FROM LOCATION ORDER BY state;
 
 --
 --
@@ -284,81 +284,44 @@ select state from LOCATION
 --
 --
 
---initializing the table
+--Table
 SELECT location_name, date_time, type, data_value
 FROM DATA_POINT
 WHERE approved IS NULL;
 
 --If the user puts a check mark by a data point that data point's name should
---go into a tuple called "name_inputs" and same for the date_time_inputs
-
---Then dependent on whether they pick accept or reject you run the following query
+--go into a tuple called "$name_inputs" and same for the $dt_inputs (for name and date-time)
 
 --ACCEPT DATA POINT with name_input and date_time_input which are both tuples
---having trouble with this one it may not necessary be correct
 UPDATE DATA_POINT
 SET approved = 1
-WHERE (location_name IN name_inputs AND date_time IN date_time_inputs);
+WHERE (location_name = '$name_input' AND date_time = '$dt_input')
 
 --REJECT DATA POINT name_inputs and date_time_inputs
 UPDATE DATA_POINT
 SET approved = 0
-WHERE (location_name IN name_inputs AND date_time IN date_time_inputs);
+WHERE (location_name = '$name_input' AND date_time = '$dt_input')
 
-
-
--- alternate querry only updates one at a time
-
-
---ACCEPT DATA POINT with name_input and date_time_input
-
-UPDATE DATA_POINT
-SET approved = 1
-WHERE (location_name = name_input AND date_time = dt_input);
-
---REJECT DATA POINT name_input and date_time_input
-UPDATE DATA_POINT
-SET approved = 0
-WHERE (location_name = name_input AND date_time = dt_input);
 
 --
 --
 -- add/reject city officials 
 --
 --
---the tricky thing is to find out how to deal with multiple city officials that they can "select" with a checkbox
---If the select box is clicked next to their name put their username in a tuple called username_inputs
 
-SELECT U.username, U.email, C.city, C.state, C.approved
+--Table
+SELECT U.username, U.email, C.city, C.state, C.approved, C.title
 FROM USER AS U
 INNER JOIN CITY_OFFICIAL AS C ON U.username = C.username
 WHERE approved IS NULL;
 
---the above returns what I want
-
 
 --ACCEPT city officials
---if their name is checked and accept button is clicked then run this query
 UPDATE CITY_OFFICIAL
 SET approved = 1
-WHERE (username IN username_inputs);
+WHERE (username = '$username');
 
 --REJECT
 UPDATE CITY_OFFICIAL
 SET approved = 0
-WHERE (username IN username_inputs);
-
-
-
--- alternate query only updates one at a time
-
---ACCEPT city official based on username_input selected
-UPDATE CITY_OFFICIAL
-SET approved = 1
-WHERE (username = username_input);
-
---REJECT city official based on username_input selected
-UPDATE CITY_OFFICIAL
-SET approved = 0
-WHERE (username = username_input);
-
+WHERE (username = '$username');
