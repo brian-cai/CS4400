@@ -269,12 +269,6 @@ $sql = "select * from POI where
     //$sql = "select * from POI " ;
 ?>
 <br>
-location: <?php echo $loc; ?> <br>
-City: <?php echo $city; ?> <br>
-State: <?php echo $state; ?> <br>
-Zip Code: <?php echo $zcode; ?> <br>
-low: <?php echo $lowend; ?> <br>
-high: <?php echo $highend; ?> <br>
 
 <?php
 
@@ -364,11 +358,6 @@ $count=$result->num_rows;
         </a>
       </button>
   <br>
-<button>
-  <a href="cityOffPOIDetail.php">
-      Need to make it linkable to details
-  </a>
-</button>
 
 
 </div>
