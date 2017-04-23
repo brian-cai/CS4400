@@ -10,14 +10,14 @@ if ($mysqli->connect_errno) {
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>City Official - POI Details</title>  
+  <title>City Official - POI Details</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<?php 
+<?php
 $sql = "SELECT type from DATA_TYPE ORDER BY type;";
 
 if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+    // Oh no! The query failed.
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -30,6 +30,7 @@ if (!$result = $mysqli->query($sql)) {
 }
 $count=$result->num_rows;
 $locationbutton = $_GET["locationbutton"];
+$flagged_status = $_GET["flagged_status"];
 
 ?>
 
@@ -43,6 +44,7 @@ Location: <?php echo $locationbutton; ?> <br>
       <h1> POI detail</h1>
       <!--hidden location-->
       <input id="checkBox" type="checkbox" style="display:none" value="<?php echo $locationbutton?>" name="locationbutton" checked>
+      <input id="checkBox" type="checkbox" style="display:none" value="<?php echo $flagged_status?>" name="flagged_status" checked>
       <!--visible-->
       Type
       <select name="poitype" >
@@ -54,10 +56,10 @@ Location: <?php echo $locationbutton; ?> <br>
               //put queries from database here
               if($row=$result->fetch_assoc()) {
                  $type = $row['type'];
-              }          
+              }
             ?>
-          
-                    
+
+
               <option value= "<?php echo $type ?>" > <?php echo $type ?></option>
 
 
@@ -82,16 +84,16 @@ Location: <?php echo $locationbutton; ?> <br>
 
       <br></br>
 
-      
-      <button href="#" input type="submit">        
-          Apply Filter 
+
+      <button href="#" input type="submit">
+          Apply Filter
 
       </button>
 
       <button>
         <a href="cityOffPOIDetail.php">
-          Reset Filter 
-        </a>        
+          Reset Filter
+        </a>
       </button>
 
 <!--TABLE STARTS HERE -->
@@ -104,13 +106,13 @@ $sql = "select type, data_value, date_time from DATA_POINT where";
 
 
 $poitype = $_GET["poitype"];
-$lowdata = $_GET["lowenddata"]; 
-$highdata = $_GET["highenddata"]; 
-$lowtime = $_GET["lowendtime"]; 
-$hightime = $_GET["highendtime"]; 
+$lowdata = $_GET["lowenddata"];
+$highdata = $_GET["highenddata"];
+$lowtime = $_GET["lowendtime"];
+$hightime = $_GET["highendtime"];
 //$lowtime = date("Y-m-d\TH:i:s", strtotime($lowtime));
 if (!empty($lowtime)) {
-  $lowtime = date("Y-m-d H:i:s" , strtotime($lowtime));  
+  $lowtime = date("Y-m-d H:i:s" , strtotime($lowtime));
 }
 if (!empty($hightime)) {
   $hightime = date("Y-m-d H:i:s" , strtotime($hightime));
@@ -119,7 +121,7 @@ if (!empty($hightime)) {
 
 if ($locationbutton === "null") {
   $sql .= "(NULL IS NULL OR location_name = NULL) and ";
-} else {  
+} else {
   $sql .= "('$locationbutton' IS NULL OR location_name = '$locationbutton') and ";
 }
 
@@ -188,12 +190,10 @@ $count=$result->num_rows;
          if($row=$result->fetch_assoc()) {
            $type = $row['type'];
            $value =  $row['data_value'];
-           $date = $row['date_time']; 
+           $date = $row['date_time'];
+        }
+        ?>
 
-           
-}
-
-      ?>
 
       <tr>
             <!--queries-->
@@ -213,23 +213,50 @@ $count=$result->num_rows;
       <br><br>
       <button>
         <a href="cityOffView.php">
-          Back 
-        </a>        
+          Back
+        </a>
       </button>
-  
 
-      <button>
+
+      <button onclick="flagger(<?php echo $flagged_status?> )" id = "flagger_button" name = "flagger_button">
         <a href="#">
-      Flag
-        </a>        
+      Flagged: <?php echo (($flagged_status)? 'yes' : 'no'); ?> | Toggle Flag Status
+        </a>
       </button>
-
+      <script>
+        function flagger(n) {
+          if (n == 1) {
+            var href = "cityOffPOIDetail.php?locationbutton=<?php echo $locationbutton ?>&flagged_status=0";
+            window.location = href;
+          } else if (n == 0) {
+            var href = "cityOffPOIDetail.php?locationbutton=<?php echo $locationbutton ?>&flagged_status=1";
+            window.location = href;
+          }
+        }
+      </script>
+<?php
+$flag_checker = "select flagged from POI where location_name = '$locationbutton';";
+$result = $mysqli->query($flag_checker);
+$row=$result->fetch_assoc();
+$flagged = $row['flagged'];
+if ($flagged_status != $flagged) {
+  if($flagged_status == 1) {
+    $updater = "update POI SET flagged = 1, date_flagged = CURDATE() where (location_name = '$locationbutton' and flagged = 0);";
+      $mysqli->query($updater);
+  } else if ($flagged_status == 0) {
+    $updater = "update POI SET flagged = 0, date_flagged = NULL where (location_name = '$locationbutton' and flagged = 1);";
+      $mysqli->query($updater);
+  }
+}
+?>
     </form>
-
   </div>
+
+
+
 Type: <?php echo $_GET["poitype"]; ?> <br>
-Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br> 
-Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br> 
+Data Range: <?php echo $_GET["lowenddata"]; ?> to <?php echo $_GET["highenddata"]; ?> <br>
+Time Range: <?php echo $_GET["lowendtime"]; ?> to <?php echo $_GET["highendtime"]; ?> <br>
 <?php
 echo "<br>";
 echo $lowtime;

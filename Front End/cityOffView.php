@@ -223,7 +223,7 @@ $lowend = $_GET["lowend"];
 $highend = $_GET["highend"];
 
 if (!empty($lowend)) {
-  $lowend = date("Y-m-d" , strtotime($lowend));  
+  $lowend = date("Y-m-d" , strtotime($lowend));
 }
 if (!empty($highend)) {
   $highend = date("Y-m-d" , strtotime($highend));
@@ -329,15 +329,15 @@ $count=$result->num_rows;
             <!--queries-->
             <td>
             <button>
-            <a href="cityOffPOIDetail.php?locationbutton=<?php echo $loc ?>">
+            <a href="cityOffPOIDetail.php?locationbutton=<?php echo $loc ?>&flagged_status=<?php echo $flagged?>">
                 <?php echo $loc ?>
             </a>
-             
+
               <!--
-               <form> 
+               <form>
                 <input type="submit" >
                 -->
-             </button> 
+             </button>
             </td>
 
             <td><?php echo $city ?></td>
