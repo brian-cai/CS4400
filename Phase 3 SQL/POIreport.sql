@@ -15,7 +15,7 @@ CREATE VIEW mold_report_test AS
 SELECT d.location_name, p.city, p.state, MIN(d.data_value) AS moldmin, AVG(d.data_value) AS moldavg, MAX(d.data_value) AS moldmax, p.flagged
 FROM DATA_POINT AS d
 INNER JOIN POI AS p
-WHERE d.location_name = p.location_name AND d.type = "mold"
+WHERE d.location_name = p.location_name AND d.type = "mold" AND d.approved = TRUE
 GROUP BY d.type, d.location_name
 ORDER BY d.location_name;
 
@@ -24,7 +24,7 @@ CREATE VIEW air_report_test AS
 SELECT d.location_name, p.city, p.state, MIN(d.data_value) AS airmin, AVG(d.data_value) AS airavg, MAX(d.data_value) AS airmax, p.flagged
 FROM DATA_POINT AS d
 INNER JOIN POI AS p
-WHERE d.location_name = p.location_name AND d.type = "air quality"
+WHERE d.location_name = p.location_name AND d.type = "air quality" and d.approved = TRUE
 GROUP BY d.type, d.location_name
 ORDER BY d.location_name;
 
