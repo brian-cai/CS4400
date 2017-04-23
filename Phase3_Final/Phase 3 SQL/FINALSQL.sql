@@ -1,35 +1,67 @@
--- REGISTER.SQL
-insert into USER values(em_input, un_input, pw_input, type_input);
+-- Login SQL
 --
--- if confpw_input != pw_input: error "passwords don't match "
+--
+--
+select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');
+-- if empty set:
+--      error "Invalid username or password"
+-- else:
+--      successful login use user_type to direct user to correct menu page
+--
+--
+---Citi_Official constraint---
+select username,approved from CITY_OFFICIAL where (username = '$username' and approved = 1);
+-- if empty set:
+--      error "city_official has not been approved"
+-- else:
+--      successful login use user_type to direct user to correct menu page
+--
+-- REGISTER.SQL
 
+-- Registers a user into the USER relation (used for city_official and city_scientist)
+insert into USER values('$rEmail', '$usernameR', '$password1', '$UserType');
 
 -- if type_input == "City Official":
 -- populate city and state dropdowns
-    select city from LOCATION;
-    select state from LOCATION;
-
-insert into CITY_OFFICIAL values(un_input, title_input, 0, city_input, state_input);
+    SELECT DISTINCT state FROM LOCATION ORDER BY state;
+    SELECT DISTINCT city FROM LOCATION ORDER BY city;
 -- assumption: city and state are already in the database
-
-
+--
+-- Registers city_officials into CITY_OFFICIAL relation
+insert into CITY_OFFICIAL values('$usernameR', '$rTitle', NULL, '$rCity', '$rState');
+--
 --
 --
 -- POI Report
 --
 --
---this is tricky af has view, joins, and aggregate functions all mixed in
+-- This command is used to get the data from the view for POI Report
+SELECT * FROM POI_report_view;
+--
+-- This is the view used in the above querry
+CREATE VIEW POI_report_view AS
+SELECT a.location_name, a.city, a.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
+FROM air_report_test AS a
+LEFT JOIN mold_report_test AS m
+  on a.location_name = m.location_name
+LEFT JOIN count_flagged as c
+  on a.location_name = c.location_name
+UNION
+SELECT m.location_name, m.city, m.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
+FROM mold_report_test AS m
+LEFT JOIN air_report_test AS a
+  on m.location_name = a.location_name
+LEFT JOIN count_flagged as c
+  on m.location_name = c.location_name
+UNION
+SELECT c.location_name, c.city, c.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
+FROM count_flagged as c
+LEFT JOIN air_report_test AS a
+  on c.location_name = a.location_name
+LEFT JOIN mold_report_test AS m
+  on c.location_name = m.location_name
 
---BRIAN THIS IS ALL YOU need
-SELECT *
-FROM POI_report_view;
---***USE THE ABOVE STATEMENT BRIAN IGNORE THE REST
---not done just in here
-
---have no idea of the difference between ordering and filtering with SQL vs GUI fuck these TAs
-
---testing
-
+-- These 3 views are used to buildthe one above
 --view for mold
 CREATE VIEW mold_report_test AS
 SELECT d.location_name, p.city, p.state, MIN(d.data_value) AS moldmin, AVG(d.data_value) AS moldavg, MAX(d.data_value) AS moldmax, p.flagged
@@ -55,179 +87,81 @@ FROM POI as p
 LEFT JOIN DATA_POINT as d
    on p.location_name = d.location_name
 GROUP BY p.location_name;
---you only need this query as long as our views are stored in the database
-CREATE VIEW POI_report_view AS
-SELECT a.location_name, a.city, a.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
-FROM air_report_test AS a
-LEFT JOIN mold_report_test AS m
-  on a.location_name = m.location_name
-LEFT JOIN count_flagged as c
-  on a.location_name = c.location_name
-UNION
-SELECT m.location_name, m.city, m.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
-FROM mold_report_test AS m
-LEFT JOIN air_report_test AS a
-  on m.location_name = a.location_name
-LEFT JOIN count_flagged as c
-  on m.location_name = c.location_name
-UNION
-SELECT c.location_name, c.city, c.state, a.airmin, a.airavg, a.airmax, m.moldmin, m.moldavg, m.moldmax, c.number_points, c.flagged
-FROM count_flagged as c
-LEFT JOIN air_report_test AS a
-  on c.location_name = a.location_name
-LEFT JOIN mold_report_test AS m
-  on c.location_name = m.location_name
-
- --man fuck this shit
- DROP VIEW IF EXISTS count_flagged_new;
- CREATE VIEW count_flagged_new AS
- SELECT p.location_name, p.city, p.state, count(d.date_time) AS number_points, p.flagged AS flagged
- FROM POI as p
- LEFT JOIN DATA_POINT as d
-    on p.location_name = d.location_name
- GROUP BY p.location_name;
-
- --
- CREATE VIEW count_test AS
- SELECT p.location_name, p.city, p.state, count(d.date_time) AS number_points, p.flagged AS flagged
- FROM POI as p
- LEFT JOIN DATA_POINT as d
-    on p.location_name = d.location_name
- GROUP BY p.location_name;
-
-
- --
- --
+--
+--
+--
  -- POI Detail
  --
- --
- -- POI DETAIL
 -- INCLUDES:
--- Filter/search and Flag
+-- Filter/search Data Point's and Flag
 
--- Filter/search
+-- Type Dropdown
+-- data types
+SELECT type from DATA_TYPE ORDER BY type
 
+-- Filter/search Data Point's
+-- THis query is constructed with a string builder in the application. The case below works if
+ -- a non-null value is inputed for each user input but the string builder handles other cases as well.
 select type, data_value, date_time from DATA_POINT where
-    (location_input = location_name) and
-    (type_input IS NULL OR type = type_input) and
-    (lowVal_input IS NULL OR highVal_input IS NULL OR (data_value >= lowVal_input AND data_value <= highVal_input)) and
-    (lowDate_input IS NULL OR highDate_input IS NULL OR (date_time >= lowDate_input AND date_time <= highDate_input));
-
--- TEST QUERIES \/\/\/\/\/
-
--- select * from DATA_POINT where
---     ('GSU' = location_name) and
---     (null IS NULL OR type = null) and
---     (10 IS NULL OR null IS NULL OR (data_value >= 10 AND data_value <= null)) and
---     ('20170101' IS NULL OR null IS NULL OR (date_time >= '20170101' AND date_time <= null));
-
--- select * from DATA_POINT where
---     ('Georgia Tech' = location_name) and
---     (null IS NULL OR type = null) and
---     (3 IS NULL OR 42 IS NULL OR (data_value >= 3 AND data_value <= 42)) and
---     (null IS NULL OR '20160101' IS NULL OR (date_time >= null AND date_time <= '20160101'));
-
-
-
+    ('$locationbutton' IS NULL OR location_name = '$locationbutton') and
+    ('$poitype' IS NULL OR type = '$poitype') and
+    (data_value >= '$lowdata' AND data_value <= '$highdata') and
+    (date_time >= '$lowtime' AND date_time <= '$hightime');
+--
+--
 -- Flag button sql command
-
-update POI SET flagged = 1 where (location_name = location_input and flagged = 0);
--- ^^^^^^ sets a not flagged location to flagged
-
-update POI SET flagged = 0 where (location_name = location_input and flagged = 1);
--- ^^^^^^ sets a flagged location to not flagged
-
-
--- requires php to check which state the POI is in when clicked
-update POI SET flagged = 0 where (location_name = 'Emory' and flagged = 1);
-
-update POI SET flagged = 1 where (location_name = 'Emory' and flagged = 0);
-
-
-
-
-
-select * from DATA_POINT where date_time >= '20170101' and date_time <= '20170231';
+--
+-- checks to see if a particular POI is Flagged
+select flagged from POI where location_name = '$locationbutton';
 --
 --
--- Login SQL
+-- sets a not flagged location to flagged
+update POI SET flagged = 1, date_flagged = CURDATE() where (location_name = '$locationbutton' and flagged = 0);
 --
 --
-select email,username,user_type from USER where( USER.username = un_input  and USER.password = pw_input);
-
--- if empty set:
---      error "Invalid username or password"
--- else:
---      successful login use user_type to direct user to correct menu page
-
-
---actual implementation
---$sql = "select email,username,user_type from USER where( USER.username = '$username'  and USER.password = '$password');";
--- TEST
--- select username, password,user_type from USER where( USER.username = "Arnold" and USER.password = "Strong")
-
-
-
----Citi_Official constraint-------
-SELECT approved 
-FROM CITY_OFFICIAL
-WHERE username = un_input
-## code will have to handle the error. 
-## only gives access to approved city_official
-## If approved == 1 (i.e city_official is approved)
-##      allow access to the application 
-
+-- sets a flagged location to not flagged
+update POI SET flagged = 0, date_flagged = NULL where (location_name = '$locationbutton' and flagged = 1);
 --
 --
--- FILTER SEARCH 
 --
+-- City Official View POI's
+-- FILTER SEARCH POI
 --
- -- this is a pretty complicated one
-
-
 -- populate drop downs with this data
 -- ********* All of these must have an option for null when there is no value selected
-select location_name from POI;
-select city from LOCATION;
-select state from LOCATION;
 
-
-
-
+-- location names in alphabetical order
+SELECT location_name FROM POI ORDER BY location_name;
+-- distinct cities in alphabetical order
+SELECT DISTINCT city FROM LOCATION ORDER BY city;
+-- distinct states in alphabetical order
+SELECT DISTINCT state FROM LOCATION ORDER BY state;
+--
+--
+--
+-- Filter/search POI's
+-- THis query is constructed with a string builder in the application. The case below works if
+ -- a non-null value is inputed for each user input but the string builder handles other cases as well.
+-- is flagged
 select * from POI where
-    (name_input IS NULL OR location_name = name_input) and
-    (city_input IS NULL OR city = city_input) and
-    (state_input IS NULL OR state = state_input) and
-    (zip_input IS NULL OR zip = zip_input) and
-    (flagged_input IS NULL OR flagged = flagged_input) and
-    (lowDate_input IS NULL OR highDate_input IS NULL OR (date_time >= lowDate_input AND date_time <= highDate_input));
-
-
-
-
--- test queries for dummy data on the php server
-
+    ('$loc' IS NULL OR location_name = '$loc') and
+    ('$city' IS NULL OR city = '$city') and
+    ('$state' IS NULL OR state = '$state') and
+    ('$zcode' IS NULL OR zip = '$zcode') and
+    (flagged = TRUE) and
+    (date_flagged >= '$lowend' AND date_flagged <= '$highend');
+-- is not flagged
 select * from POI where
-    (null IS NULL OR location_name = null) and
-    (null IS NULL OR city = null) and
-    (null IS NULL OR state = null) and
-    (null IS NULL OR zip = null) and
-    (null IS NULL OR flagged = null) and
-    (null IS NULL OR null IS NULL OR (null >= null AND null <= null));
-
-
-
--- select * from POI where
---     (null IS NULL OR location_name = null) and
---     (null IS NULL OR city = null) and
---     (null IS NULL OR state = null) and
---     (null IS NULL OR zip = null) and
---     (null IS NULL OR flagged = null) and
---     (null IS NULL OR date_flagged = null)
+    ('$loc' IS NULL OR location_name = '$loc') and
+    ('$city' IS NULL OR city = '$city') and
+    ('$state' IS NULL OR state = '$state') and
+    ('$zcode' IS NULL OR zip = '$zcode') and
+    (flagged = FALSE);
 
 --
 --
--- DROPDOWN
+--
+-- DROPDOWN menu query's
 --
 --
 
@@ -275,8 +209,8 @@ insert into DATA_POINT values(name_input, datetime_input, type_inout, value_inpu
 
 -- populate drop downs
 
-select city from LOCATION
-select state from LOCATION
+    SELECT DISTINCT state FROM LOCATION ORDER BY state;
+    SELECT DISTINCT city FROM LOCATION ORDER BY city;
 
 --
 --
@@ -323,7 +257,7 @@ WHERE (location_name = name_input AND date_time = dt_input);
 
 --
 --
--- add/reject city officials 
+-- add/reject city officials
 --
 --
 --the tricky thing is to find out how to deal with multiple city officials that they can "select" with a checkbox
