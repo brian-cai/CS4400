@@ -38,7 +38,7 @@ $count=$result->num_rows;
   <div class="form">
     <form action = "addDataPOI.php" method = "get">
       <h1>ADD A NEW LOCATION </h1>
-      <input type="text" name="poiname" placeholder="poi location name"/>
+      <input type="text" name="poiname" placeholder="poi location name" pattern="[a-zA-Z][a-zA-Z0-9-_\.]*"/>
 
       <select name="City">
           <?php
@@ -103,7 +103,7 @@ $count=$result->num_rows;
         </select>
       <br>
 
-        <input type="number" pattern = "[0-9]{5}" name="zcode" placeholder="zip code"/>
+        <input type="number" pattern = "[0-9]{5}" size = "5" name="zcode" placeholder="zip code"/>
 
       <button href="#" input type="submit">
           Submit

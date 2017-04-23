@@ -22,8 +22,8 @@ if ($mysqli->connect_errno) {
     <!--LOGIN FORM -->
     <form class="login-form" action = "index.php" method = "post">
       LOGIN
-      <input type="text" name="username" placeholder="username"/>
-      <input type="password" name="password" placeholder="password"/>
+      <input type="text" name="username" placeholder="username" pattern="[a-zA-Z][a-zA-Z0-9-_\.]*"/>
+      <input type="password" name="password" placeholder="password" pattern="[a-zA-Z][a-zA-Z0-9-_\.]*"/>
 
       <button href="#" name="loginB" input type="submit" value=1> Login </a> </button>
       <p class="message">Not registered? <a href="#">Register</a></p>
@@ -37,9 +37,9 @@ if ($mysqli->connect_errno) {
 
     <form class="register-form" action = "index.php" method = "post">
       NEW USER REGISTRATION
-      <input type="text" name="usernameR" placeholder="username"/>
+      <input type="text" name="usernameR" placeholder="username" pattern="[a-zA-Z][a-zA-Z0-9-_\.]*"/>
       <input type="email" name="email" placeholder="email address"/>
-      <input type="password" name="password1" placeholder="password"/>
+      <input type="password" name="password1" placeholder="password" pattern="[a-zA-Z][a-zA-Z0-9-_\.]*""/>
       <input type="password" name="password2" placeholder="confirm password">
       <!-- dropdown  city officials-->
 

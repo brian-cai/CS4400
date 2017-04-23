@@ -153,7 +153,7 @@ $count=$result->num_rows;
         </select>
       <br>
 
-        <input type="number" name="zcode" placeholder="zip code"/>
+        <input type="number" size="5" name="zcode" placeholder="zip code"/>
 
       <br>
  <input type="checkbox" name="flagged"  value="checkifflagged"> Flagged <br>
@@ -194,7 +194,7 @@ $loc = $_GET["location"];
 if ($loc === "null") {
   $sql .= "(NULL IS NULL OR location_name = NULL) and";
 } else {
-  echo "    location is not EMPTY      ";
+  // echo "    location is not EMPTY      ";
   $sql .= "('$loc' IS NULL OR location_name = '$loc') and";
 }
 
