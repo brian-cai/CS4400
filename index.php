@@ -365,5 +365,5 @@ if ($lPressed == 1) {
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script src="js/index.js"></script>
+<script src="http://cs4400.herokuapp.com/js/index.js"></script>
 </body>
