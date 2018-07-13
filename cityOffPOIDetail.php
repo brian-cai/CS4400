@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli('academic-mysql.cc.gatech.edu', 'cs4400_37', 'g_N9Gblm', 'cs4400_37');
+$mysqli = new mysqli('sql9.freemysqlhosting.net', 'sql9247411', 'LevNSgPW8m', 'sql9247411');
 if ($mysqli->connect_errno) {
   echo "website error";
   exit;
