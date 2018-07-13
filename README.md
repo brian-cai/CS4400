@@ -14,3 +14,15 @@ Relational Schemes --- /Old_Copy/Phase 2/CS4400_Group37_Phase2.pdf
 SQL Statements --- /Old_Copy/Phase3_Final/Phase 3 SQL/FINALSQL.sql
 
 ## Setup
+Server --- original cc.gatech.edu, now using freemysqlhosting.net
+
+Demo --- originally localhost on a vm, now using heroku
+
+## Running Locally
+To run locally, you need php and mysqli. Install them.
+
+I did it with linux on a virtual machine (virtualbox) on ubuntu. Use sudo apt-get and all that.
+
+Starting the server: php -S localhost:8000 (or whatever port)
+
+To view, open chrome and go to localhost:8000 (or whatever port)
