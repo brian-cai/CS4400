@@ -365,5 +365,21 @@ if ($lPressed == 1) {
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script src="http://cs4400.herokuapp.com/js/index.js"></script>
+<script>
+  $('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+
+
+//$('b').click( function() {alert("link to pending data points"); } );
+
+$('c').click( function() {alert("link to pending city official accounts"); } );
+
+$('d').click( function() {} );
+
+$('submitted').click( function() {alert("placeholder for submit!");})
+
+
+
+</script>
 </body>
