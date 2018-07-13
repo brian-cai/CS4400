@@ -1,6 +1,6 @@
 <?php
 //<!--website, user, pass, db-->
-$mysqli = new mysqli('sql9.freemysqlhosting.net', 'sql9247411', 'LevNSgPW8m', 'CS4400g37spring17');
+$mysqli = new mysqli('sql9.freemysqlhosting.net', 'sql9247411', 'LevNSgPW8m', 'sql9247411');
 if ($mysqli->connect_errno) {
   echo "website error";
   exit;
