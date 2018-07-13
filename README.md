@@ -2,7 +2,7 @@
 ## Database
 Implementation of a "Mold and Air Quality" database for CS4400.
 
-Rehosting for demo purposes.
+Rehosted for demo purposes 7/31/2018.
 
 ## Navigation
 Old_Copy Folder was what was the in the original final repository
@@ -17,6 +17,8 @@ SQL Statements --- /Old_Copy/Phase3_Final/Phase 3 SQL/FINALSQL.sql
 Server --- original cc.gatech.edu, now using freemysqlhosting.net
 
 Demo --- originally localhost on a vm, now using heroku
+
+Some pages were modified and some js was changed due to heroku's environment being very different from a localhost.
 
 ## Running Locally
 To run locally, you need php and mysqli. Install them.
